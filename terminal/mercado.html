@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Radar Nasdaq y cripto · Centinela</title>
+  <link rel="stylesheet" href="mercado.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+  <script defer src="indicadores.js"></script>
+  <script defer src="mercado.js"></script>
+</head>
+<body>
+  <main class="terminal">
+    <header class="cabecera">
+      <div>
+        <p class="etiqueta">CENTINELA / OBSERVACIÓN</p>
+        <h1>Radar <span>Nasdaq y cripto</span></h1>
+        <p class="subtitulo">Solo mercado · sin conexión a cuentas ni órdenes</p>
+      </div>
+      <button id="actualizar" type="button">Actualizar</button>
+    </header>
+
+    <section class="controles" aria-label="Controles del gráfico">
+      <label>Activo
+        <select id="simbolo">
+          <optgroup label="Nasdaq y ETF · Yahoo Finance">
+          <option value="^NDX">Nasdaq 100 · índice</option>
+          <option value="QQQ">QQQ · ETF</option>
+          <option value="AAPL">Apple · AAPL</option>
+          <option value="MSFT">Microsoft · MSFT</option>
+          <option value="NVDA">NVIDIA · NVDA</option>
+          <option value="AMD">AMD · AMD</option>
+          <option value="AMZN">Amazon · AMZN</option>
+          <option value="GOOGL">Alphabet · GOOGL</option>
+          <option value="META">Meta · META</option>
+          <option value="TSLA">Tesla · TSLA</option>
+          </optgroup>
+          <optgroup label="Cripto spot · Binance">
+          <option value="BTCUSDT">Bitcoin · BTC/USDT</option>
+          <option value="ETHUSDT">Ethereum · ETH/USDT</option>
+          <option value="SOLUSDT">Solana · SOL/USDT</option>
+          <option value="XRPUSDT">XRP · XRP/USDT</option>
+          <option value="ADAUSDT">Cardano · ADA/USDT</option>
+          </optgroup>
+        </select>
+      </label>
+      <label>Intervalo
+        <select id="intervalo">
+          <option value="1m">1 minuto</option>
+          <option value="5m" selected>5 minutos</option>
+          <option value="15m">15 minutos</option>
+          <option value="1h">1 hora</option>
+          <option value="4h" disabled>4 horas · solo cripto</option>
+          <option value="1d">1 día</option>
+        </select>
+      </label>
+      <fieldset>
+        <legend>Indicadores</legend>
+        <label><input id="ema20" type="checkbox" checked> EMA 20</label>
+        <label><input id="ema50" type="checkbox"> EMA 50</label>
+      </fieldset>
+    </section>
+
+    <section class="herramientas" aria-label="Herramientas del gráfico">
+      <button id="rep-entrar" type="button" disabled>Repetir histórico</button>
+      <button id="dib-horizontal" type="button" aria-pressed="false" disabled>Línea horizontal</button>
+      <button id="dib-tendencia" type="button" aria-pressed="false" disabled>Línea de tendencia</button>
+      <button id="dib-borrar" type="button" disabled>Borrar dibujos</button>
+      <p id="herramienta-estado" role="status">Los dibujos no son órdenes; se borran al cambiar activo o intervalo.</p>
+    </section>
+    <section id="repeticion" class="repeticion" aria-label="Repetición histórica" hidden>
+      <strong>REPETICIÓN HISTÓRICA</strong>
+      <button id="rep-atras" type="button" aria-label="Vela anterior">◀</button>
+      <button id="rep-play" type="button">Reproducir</button>
+      <button id="rep-adelante" type="button" aria-label="Vela siguiente">▶</button>
+      <label>Posición <input id="rep-pos" type="range" min="0" value="0" step="1"></label>
+      <span id="rep-contador" aria-live="polite"></span>
+      <button id="rep-salir" type="button">Salir de repetición</button>
+    </section>
+
+    <section class="pantalla" aria-label="Gráfico de velas">
+      <div class="resumen">
+        <div><p id="titulo-cierre" class="etiqueta">ÚLTIMO CIERRE DE VELA</p><strong id="cierre">—</strong></div>
+        <div class="datos">
+          <p id="detalle">Esperando datos de mercado.</p>
+          <p>La vela puede seguir abierta. No es una cotización ejecutable.</p>
+        </div>
+      </div>
+      <div id="grafico" aria-label="Gráfico interactivo de velas"></div>
+      <p id="estado" role="status" aria-live="polite">Cargando el gráfico…</p>
+    </section>
+
+    <footer>
+      <p>Nasdaq y acciones: Yahoo Finance. Cripto: Binance Spot, pares frente a USDT; USDT no equivale necesariamente
+        a un dólar. Los datos pueden estar retrasados o incompletos y se almacenan temporalmente en caché.
+        En la web pública, cripto se consulta desde tu navegador y Binance puede no estar disponible en algunas regiones.
+        No hay garantía de tiempo real ni de disponibilidad.</p>
+      <p>Hora de inicio de la vela en Madrid; eje del gráfico en UTC. El historial depende del intervalo y del proveedor.
+        No se mezclan futuros con el índice de contado.</p>
+    </footer>
+    <noscript>Activa JavaScript para consultar las velas.</noscript>
+  </main>
+</body>
+</html>

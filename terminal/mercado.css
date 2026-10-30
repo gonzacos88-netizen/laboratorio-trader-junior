@@ -1,0 +1,38 @@
+:root{color-scheme:dark;font-family:Inter,system-ui,sans-serif;background:#070a15;color:#e8ecfa}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 82% 0,rgba(84,58,151,.2),transparent 42%),#070a15}
+.terminal{max-width:1600px;margin:auto;padding:22px}
+.cabecera{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
+.etiqueta{margin:0 0 7px;font-size:10px;font-weight:700;letter-spacing:.16em;color:#9e9abf}
+h1{font-size:clamp(24px,3vw,36px);letter-spacing:-.04em;margin:0}h1 span{color:#8ad9f6}
+.subtitulo{color:#9aa8bf;font-size:13px;margin:6px 0 0}
+button,select{border:1px solid #343953;border-radius:8px;background:#151b2e;color:#eef3ff;font:inherit;padding:9px 12px}
+button{cursor:pointer}button:hover,select:hover{border-color:#69d5e6}button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid #8ad9f6;outline-offset:3px}
+.controles{display:flex;align-items:end;gap:15px;flex-wrap:wrap;margin-bottom:14px}
+.controles>label{display:grid;gap:6px;font-size:11px;color:#aab7ca}
+.controles select{min-width:135px;font-size:13px}
+fieldset{display:flex;align-items:center;gap:16px;border:0;margin:0;padding:0 0 8px;color:#c5d0e0;font-size:12px}
+legend{font-size:11px;color:#aab7ca;margin-bottom:7px}fieldset label{display:flex;align-items:center;gap:5px}
+input{accent-color:#77dce8}
+.herramientas,.repeticion{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.herramientas button,.repeticion button{font-size:12px;padding:7px 10px}
+.herramientas button[aria-pressed="true"]{border-color:#69d5e6;background:#17384b}
+button:disabled{opacity:.45;cursor:not-allowed}
+.herramientas p{flex-basis:100%;margin:0;color:#9aa8bf;font-size:11px}
+.repeticion{background:#1b2440;border:1px solid #495783;border-radius:10px;padding:10px;font-size:12px}
+.repeticion[hidden]{display:none}
+.repeticion label{display:flex;align-items:center;gap:6px;flex:1;min-width:160px}
+.repeticion input{min-width:100px;flex:1}.repeticion strong{color:#d8b8ff}
+.pantalla{border:1px solid #282f49;border-radius:14px;background:#0a0f1d;overflow:hidden}
+.resumen{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:16px 18px;border-bottom:1px solid #252b40}
+#cierre{font-size:24px;letter-spacing:-.03em}.datos{text-align:right;font-size:11px;line-height:1.45;color:#9aa8bf}.datos p{margin:2px 0}
+#grafico{height:clamp(330px,52vh,700px);width:100%}
+#estado{min-height:42px;margin:0;padding:12px 18px;color:#aec0d1;font-size:12px;border-top:1px solid #252b40}
+#estado.error{color:#ffc19d}
+footer{color:#91a0b7;font-size:11px;line-height:1.6;margin-top:14px}footer p{margin:4px 0}
+@media(max-width:600px){
+  .terminal{padding:14px}.cabecera{align-items:flex-start}.controles{gap:10px}
+  .controles>label{flex:1;min-width:125px}.controles select{width:100%;min-width:0}
+  fieldset{width:100%}.resumen{padding:13px}.datos{text-align:left}
+  #grafico{height:350px}.subtitulo{max-width:220px}
+}
