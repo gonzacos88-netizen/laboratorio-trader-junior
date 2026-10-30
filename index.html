@@ -726,7 +726,7 @@ td{border-bottom-color:var(--borde)}
       <span class="bajar" aria-hidden="true">⌄</span>
     </div></div>
     <section class="sec-l"><p class="ceja">Nuestra misión · NASDAQ y cripto</p><h2 class="t">Dos recorridos, sin mezclar cuentas.</h2><div class="pulso-portada">
-      <a href="#pulso"><span class="ceja">Sistema NASDAQ · acciones · papel</span><h3>PULSO</h3><p>Observa el bot de acciones de EE. UU., sus posiciones y sus riesgos. PULSO es un nombre provisional.</p><span>Conocer PULSO →</span></a>
+      <a href="#pulso"><span class="ceja">Sistema NASDAQ · acciones · papel</span><h3>PULSO</h3><p>Conoce el sistema de acciones de EE. UU. Sus posiciones y riesgos están pendientes de conciliación antes de publicarse. PULSO es un nombre provisional.</p><span>Conocer PULSO →</span></a>
       <a href="#cripto"><span class="ceja">Cripto · papel</span><h3>Cripto</h3><p>Una estrategia de una cuenta anterior, no un bot ni una cuenta independiente de PULSO.</p><span>Explorar cripto →</span></a>
     </div></section>
     <div class="cierre"><h2>Listo cuando tú lo estés.</h2><p class="lead" style="margin:0 auto 24px">Empieza por la academia: seis niveles, ejemplos y ejercicios. Sin cuenta y sin tarjeta.</p>
@@ -2585,7 +2585,7 @@ void main(){
   function vistaResultadosMision(){
     $('v-resultados').innerHTML=`<div class="cab-v"><p class="ceja">Resultados · papel</p><h2 class="tit">Dos recorridos, datos separados</h2>
       <p class="intro">Consulta los resultados disponibles de cada recorrido sin sumar sus cuentas. Los datos pueden tener retraso y no acreditan ejecuciones reales.</p></div>
-      <div class="pulso-portada"><a href="#pulso"><h3>PULSO · NASDAQ</h3><p>Estado y cierres recientes del sistema de acciones. Su cuenta sigue pendiente de conciliación.</p><span>Ver PULSO →</span></a>
+      <div class="pulso-portada"><a href="#pulso"><h3>PULSO · NASDAQ</h3><p>${PUBLICO?'La cuenta y sus resultados están pendientes de conciliación y no se publican todavía.':'Estado y cierres recientes del sistema de acciones. Su cuenta sigue pendiente de conciliación.'}</p><span>Ver PULSO →</span></a>
       <a href="#cripto"><h3>Cripto</h3><p>Operaciones de una estrategia de una cuenta anterior compartida; no pertenecen a PULSO.</p><span>Ver cripto →</span></a></div>`;
   }
   function vistaTerminalMision(){
