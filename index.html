@@ -4,11 +4,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
 <style>
-/* CENTINELA · noche azul profunda, cian eléctrico y violeta; cifras en mono; vidrio en lo que flota */
+/* CENTINELA · identidad única: fuente de verdad de todos los colores (no la redeclares en otras piezas).
+   Noche casi negra + un solo acento (teal "cian"); violeta/magenta/ámbar solo como apoyo puntual; cifras en mono. */
 :root{
-  --bg:#05080f;--bg2:#070c17;--panel:#0b1220;--panel2:#111a2b;--borde:#1a2539;--borde2:#26344f;--txt:#e6edf7;--tenue:#8492ab;--tenue2:#56647e;
-  --cian:#22d3ee;--violeta:#a78bfa;--magenta:#e879f9;--ambar:#fbbf24;--azul:#22d3ee;--sube:#2bd48a;--baja:#ff5470;
-  --sube-f:rgba(43,212,138,.12);--baja-f:rgba(255,84,112,.12);--azul-f:rgba(34,211,238,.10);--cian-f:rgba(34,211,238,.12);
+  --bg:#080d18;--bg2:#0c1322;--panel:#10192a;--panel2:#172237;--borde:#27364a;--borde2:#405268;--txt:#edf3f7;--tenue:#b2c0d0;--tenue2:#9babbd;
+  --cian:#91d8d2;--violeta:#bec9e8;--magenta:#e1a9ee;--ambar:#fbbf24;--azul:var(--cian);--sube:#2bd48a;--baja:#ff5470;
+  --sube-f:rgba(43,212,138,.12);--baja-f:rgba(255,84,112,.12);--azul-f:rgba(145,216,210,.12);--cian-f:rgba(145,216,210,.12);
   --f-disp:"Sora","Archivo",system-ui,sans-serif;--f-ui:"Archivo",system-ui,sans-serif;--f-num:"JetBrains Mono",Consolas,monospace;--f-emo:"Noto Color Emoji","Segoe UI Emoji",sans-serif;
   color-scheme:dark}
 *{box-sizing:border-box}
@@ -653,10 +654,7 @@ body{isolation:isolate}
   84%{opacity:.65}
   89%{opacity:0;transform:translate(-170px,80px) rotate(-25deg)}
 }
-:root{
-  --bg:#070a18;--bg2:#0a1021;--panel:#101429;--panel2:#181b36;--borde:#2a3150;--borde2:#414769;
-  --txt:#dcdaf4;--tenue:#a7adca;--tenue2:#969fbd;
-  --cian:#79e3dc;--violeta:#c1a8fa;--magenta:#e1a9ee}
+/* Los colores (--bg, --cian…) ya son los únicos de 010_estilos_base.css: no se redeclaran aquí. */
 a{color:var(--cian)}
 .grad{background:linear-gradient(105deg,#9ee9dc 0%,#a7c7f5 42%,#d1aef0 78%,#e0afd9 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent}
@@ -689,6 +687,53 @@ td{border-bottom-color:var(--borde)}
 .vuelo-resumen>div{border:1px solid var(--borde);border-radius:9px;padding:10px}
 .vuelo-resumen small,.vuelo-resumen strong{display:block}.vuelo-resumen small{color:var(--tenue);font-size:11px}
 .vuelo-estado{font-size:12px;color:var(--tenue);overflow-wrap:anywhere}
+/* Una identidad visual compartida para portada, herramientas y espacio personal. */
+/* Los colores ya son los únicos de 010_estilos_base.css: no se redeclaran aquí. */
+.cosmos-global{background:radial-gradient(ellipse at 85% 12%,rgba(54,99,128,.10),transparent 42%),radial-gradient(ellipse at 15% 85%,rgba(38,100,104,.09),transparent 45%)}
+.grad,.vista .tit,.sec-l h2.t,.cierre h2,.capa .h-esc{background:none;color:#edf3f7;-webkit-text-fill-color:currentColor}
+.capa .grad{color:#a7ded9;filter:none}
+.capa .h-esc,.capa.izq h1{letter-spacing:-.035em;text-shadow:0 2px 24px rgba(2,7,15,.8)}
+.escena-fija{background:var(--bg)}
+.escena-fija::after{content:"";position:absolute;inset:auto 0 0;height:18%;z-index:1;pointer-events:none;background:linear-gradient(to bottom,transparent,var(--bg))}
+.escena .capa{transition:opacity .7s ease,transform .7s ease}
+.btn.blanco,.btn-w{background:#a7ded9;color:#10242c}
+.btn.blanco{clip-path:none;border-radius:12px;padding-right:22px}
+.btn.sec{background:rgba(13,23,36,.58)}
+.panel{background:linear-gradient(145deg,rgba(20,31,48,.98),rgba(14,23,37,.98))}
+th{background:#1b293b;color:#d0dbe5}
+.ruta-centinela{position:relative;padding-top:82px}
+.ruta-centinela .lead{margin-top:14px}
+.ruta-tarjetas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.ruta-tarjetas a{display:flex;flex-direction:column;min-width:0;gap:12px;padding:24px;border:1px solid var(--borde);border-radius:18px;background:linear-gradient(155deg,rgba(27,45,59,.9),rgba(14,24,38,.96));color:var(--txt);text-decoration:none;transition:border-color .2s,transform .2s}
+.ruta-tarjetas a:hover{border-color:var(--cian);transform:translateY(-3px)}
+.ruta-num{font:700 11px var(--f-num);letter-spacing:.08em;color:var(--cian)}
+.ruta-tarjetas h3{margin:0;font:700 20px/1.2 var(--f-disp)}
+.ruta-tarjetas p{margin:0;color:var(--tenue);font-size:14px}
+.ruta-ir{margin-top:auto;padding-top:8px;color:var(--cian);font-weight:700;font-size:13px}
+.pulso-portada a,.pulso-portada a:nth-child(2){background:linear-gradient(145deg,rgba(27,49,60,.85),rgba(15,24,38,.98))}
+.diario{margin:24px 0}
+.diario .panel-cuerpo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+.diario form{display:grid;gap:12px;align-content:start}
+.diario label{display:grid;gap:5px;color:var(--tenue);font-size:13px}
+.diario input,.diario select,.diario textarea{width:100%;border:1px solid var(--borde2);border-radius:9px;background:var(--bg2);color:var(--txt);padding:10px;font:inherit}
+.diario [hidden]{display:none}
+.diario textarea{min-height:84px;resize:vertical}
+.diario-campos{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.diario-acciones{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.diario-estado{font-size:13px;color:var(--tenue);min-height:1.5em;margin:0}
+.diario-estado.error{color:#ffb8a9}
+.diario-lista{display:grid;gap:10px;align-content:start}
+.diario-lista h3{margin:0;font:700 19px var(--f-disp)}
+.diario-entrada{padding:15px;border:1px solid var(--borde);border-radius:12px;background:var(--bg2);overflow-wrap:anywhere}
+.diario-entrada h4{margin:0 0 5px;font:700 16px var(--f-disp)}
+.diario-entrada p{margin:7px 0;white-space:pre-wrap;color:var(--tenue);font-size:13px}
+.diario-entrada small{color:var(--tenue2)}
+.diario-entrada .diario-acciones{margin-top:12px}
+.diario-aviso{font-size:13px;color:var(--tenue);margin:0 0 14px;max-width:85ch}
+@media(max-width:980px){.ruta-tarjetas{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.diario .panel-cuerpo{grid-template-columns:1fr}.escena-fija::after{height:15%}}
+@media(max-width:540px){.ruta-tarjetas{grid-template-columns:1fr}.ruta-tarjetas a{padding:20px}.diario-campos{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.ruta-tarjetas a,.escena .capa{transition:none}}
 </style>
 
 <div class="cosmos-global" aria-hidden="true"><i></i><i></i></div>
@@ -711,20 +756,30 @@ td{border-bottom-color:var(--borde)}
   <!-- INICIO -->
   <section class="vista" id="v-inicio">
     <div class="escena" id="escena"><div class="escena-fija" id="heroX"><canvas id="cielo" aria-hidden="true"></canvas><canvas id="mundo" aria-hidden="true"></canvas>
-      <div class="capa izq" id="c1"><p class="ceja">Python · Datos · Mercados</p>
-        <h1>Dos mercados. <span class="grad">Un universo por descubrir.</span></h1>
-        <p class="sub">Nuestra misión: explorar el sistema NASDAQ de acciones de EE. UU. y la estrategia cripto, en papel. Dos recorridos para aprender con datos y riesgo, sin promesas.</p>
-        <div class="ctas"><a class="btn blanco" href="#pulso">Explorar NASDAQ <span aria-hidden="true">↗</span></a><a class="btn sec" href="#cripto">Explorar cripto <span aria-hidden="true">↗</span></a></div>
-        <p class="nota">Dinero simulado · Los datos pueden tener retraso · Sin promesas de rentabilidad</p>
+      <div class="capa izq" id="c1"><p class="ceja">Centinela · Tu espacio para aprender</p>
+        <h1>Entiende el mercado. <span class="grad">Aprende a decidir.</span></h1>
+        <p class="sub">Explora Nasdaq y cripto, practica con datos históricos y aprende a tu ritmo. Sin arriesgar dinero real.</p>
+        <div class="ctas"><a class="btn blanco" href="#terminal">Abrir el radar <span aria-hidden="true">↗</span></a><a class="btn sec" href="#practica">Ir al simulador <span aria-hidden="true">↗</span></a></div>
+        <p class="nota">Datos de proveedores identificados · La simulación no es operativa real</p>
         <p class="pista">↻ Arrastra el planeta · pasa por una ciudad, el satélite o el núcleo</p></div>
-      <div class="capa off" id="c2"><p class="ceja">PULSO · acciones · papel</p><h2 class="h-esc">Reglas claras, sin promesas.</h2><p class="sub">Un sistema en observación. Su cuenta todavía está pendiente de conciliación y sus resultados deben interpretarse con cautela.</p></div>
-      <div class="capa izq off" id="c3"><p class="ceja">Aprende paso a paso</p><h2 class="h-esc" style="margin:0;max-width:none">Entiende el mercado antes de buscar una oportunidad.</h2><p class="sub">Descubre gráficos, riesgo y estrategias con explicaciones sencillas y ejercicios.</p>
+      <div class="capa off" id="c2"><p class="ceja">PULSO · acciones · papel</p><h2 class="h-esc">Cada decisión tiene una razón.</h2><p class="sub">PULSO es un sistema en observación. Sus resultados aún están pendientes de conciliación antes de publicarse.</p></div>
+      <div class="capa izq off" id="c3"><p class="ceja">Aprende paso a paso</p><h2 class="h-esc" style="margin:0;max-width:none">Aprende haciendo.</h2><p class="sub">Explora el gráfico, practica y guarda lo que descubres. La curiosidad es tu punto de partida.</p>
         <div class="ctas"><a class="btn prim" href="#aprende">Explorar la academia</a><a class="btn sec" href="#pulso">Conocer PULSO</a></div>
         <p class="pista">✦ La nebulosa y las estrellas son decorativas: no representan operaciones ni resultados.</p></div>
       <div class="consola" id="consola"><span class="c-cab">● CENTINELA — observación en papel</span><div id="consola-l"></div></div>
       <div class="hx-card" id="hx-card" hidden></div>
       <span class="bajar" aria-hidden="true">⌄</span>
     </div></div>
+    <section class="sec-l ruta-centinela" aria-labelledby="ruta-titulo">
+      <div><p class="ceja">Tu recorrido · a tu ritmo</p><h2 class="t" id="ruta-titulo">Un lugar para entender, practicar y mejorar.</h2>
+        <p class="lead">Empieza por lo que necesitas hoy. Cada herramienta explica qué datos utiliza y cuáles son sus límites.</p></div>
+      <div class="ruta-tarjetas">
+        <a href="#terminal"><span class="ruta-num">01 · EXPLORA</span><h3>Radar de mercado</h3><p>Observa Nasdaq y cripto con gráficos, indicadores y repetición histórica.</p><span class="ruta-ir">Abrir radar <span aria-hidden="true">↗</span></span></a>
+        <a href="#practica"><span class="ruta-num">02 · PRACTICA</span><h3>Simulador de vuelo</h3><p>Prueba reglas educativas sobre el histórico diario de QQQ con capital ficticio.</p><span class="ruta-ir">Ir al simulador <span aria-hidden="true">↗</span></span></a>
+        <a href="#aprende"><span class="ruta-num">03 · APRENDE</span><h3>Academia</h3><p>Avanza con lecciones, ejercicios y conceptos de riesgo explicados con claridad.</p><span class="ruta-ir">Empezar a aprender <span aria-hidden="true">↗</span></span></a>
+        <a href="#espacio"><span class="ruta-num">04 · REFLEXIONA</span><h3>Mi diario</h3><p>Guarda tus decisiones y aprendizajes en este navegador, sin crear una cuenta.</p><span class="ruta-ir">Abrir mi espacio <span aria-hidden="true">↗</span></span></a>
+      </div>
+    </section>
     <section class="sec-l"><p class="ceja">Nuestra misión · NASDAQ y cripto</p><h2 class="t">Dos recorridos, sin mezclar cuentas.</h2><div class="pulso-portada">
       <a href="#pulso"><span class="ceja">Sistema NASDAQ · acciones · papel</span><h3>PULSO</h3><p>Conoce el sistema de acciones de EE. UU. Sus posiciones y riesgos están pendientes de conciliación antes de publicarse. PULSO es un nombre provisional.</p><span>Conocer PULSO →</span></a>
       <a href="#cripto"><span class="ceja">Cripto · papel</span><h3>Cripto</h3><p>Una estrategia de una cuenta anterior, no un bot ni una cuenta independiente de PULSO.</p><span>Explorar cripto →</span></a>
@@ -768,9 +823,9 @@ td{border-bottom-color:var(--borde)}
 
 <script>
 /* ── CATÁLOGO: lo genera construir.py desde contenido/ (no editar aquí) ── */
-const CATALOGO={"secciones":{"secciones":[{"id":"inicio","titulo":"Inicio","menu":true,"estado":"publicada"},{"id":"pulso","titulo":"Pulso","menu":true,"estado":"publicada"},{"id":"cripto","titulo":"Cripto","menu":true,"estado":"publicada"},{"id":"espacio","titulo":"Mi espacio","menu":true,"estado":"publicada"},{"id":"sistemas","titulo":"Archivo ATLAS","menu":false,"estado":"aparcada"},{"id":"atlas","titulo":"ATLAS","menu":false,"padre":"sistemas","estado":"aparcada"},{"id":"opera","titulo":"Opera","menu":true,"estado":"aparcada","motivo":"28-oct: «sigue a ATLAS en papel» se parece a copiar al bot; vuelve solo rehecha como práctica, sin seguir a nadie."},{"id":"resultados","titulo":"Resultados","menu":true,"estado":"publicada"},{"id":"terminal","titulo":"Terminal","menu":true,"estado":"publicada"},{"id":"radar","titulo":"Radar","menu":true,"estado":"publicada"},{"id":"aprende","titulo":"Aprende","menu":true,"estado":"publicada"},{"id":"practica","titulo":"Practica","menu":true,"estado":"publicada"},{"id":"planes","titulo":"Planes","menu":false,"estado":"publicada"},{"id":"transparencia","titulo":"Transparencia","menu":true,"estado":"publicada"}]},"temario":{"niveles":{"libre":"Gratis","registro":"Con registro","pro":"Pro"},"modulos":[{"id":"m1","titulo":"Trading desde cero","resumen":"Qué es un bot, el riesgo, cómo leer resultados, cómo se comprueba cada precio.","nivel":"libre","estado":"publicado","lecciones":[{"id":"l1","nivel":"libre","estado":"publicada","t":"Qué es un bot y qué es operar en papel","r":"Lección 2","p":["Un <b>bot de trading<\/b> es un programa que sigue unas reglas escritas de antemano: cuándo entrar, cuánto arriesgar y cuándo salir. No improvisa ni tiene corazonadas.","Operar en <b>papel<\/b> es operar con dinero simulado pero con precios reales del mercado. Si el bot gana o pierde, no se mueve dinero de verdad.","Sirve para medir una estrategia sin arriesgar: primero se prueba, luego se decide.","<b>Comprar<\/b> (ir largo) gana si el precio sube. <b>Vender en corto<\/b> gana si el precio baja."],"q":[["¿Qué es operar en papel?",["Operar con dinero real pero poco","Operar con dinero simulado y precios reales","Operar inventando los precios"],1],["Un bot de trading…",["adivina el futuro","sigue reglas escritas de antemano","siempre gana"],1],["Si vendes en corto, ganas cuando el precio…",["sube","no se mueve","baja"],2]]},{"id":"l2","nivel":"libre","estado":"publicada","t":"El riesgo: stop, R y tamaño","r":"Simulador de riesgo y lección 3","p":["El <b>stop-loss<\/b> es el precio al que el bot cierra si la operación va mal. Limita la pérdida… casi siempre: si el precio salta de golpe (un hueco), la salida puede ser peor.","<b>1 R<\/b> es lo que se pierde si salta el stop. Medir en R permite comparar operaciones de distinto tamaño: +2 R es ganar el doble de lo que se arriesgaba.","El tamaño se calcula al revés: primero decides cuánto arriesgar (por ejemplo, el 0,2 % de la cuenta) y la distancia al stop te dice cuántas acciones comprar.","<b>Apalancamiento<\/b> es mover más dinero del que tienes: multiplica ganancias y pérdidas. En cada ficha verás el «nocional abierto»; si supera el capital, hay apalancamiento."],"q":[["¿Qué es 1 R?",["Lo que se pierde si salta el stop","El 1 % de la cuenta","El beneficio que se busca"],0],["¿El stop garantiza la pérdida exacta?",["Sí, siempre","No: si el precio salta de golpe puede salir peor","Solo en cripto"],1],["Arriesgando lo mismo, si el stop está más lejos la posición es…",["más grande","igual","más pequeña"],2]]},{"id":"l3","nivel":"libre","estado":"publicada","t":"Leer resultados sin engañarse","r":"Lección 4","p":["El <b>acierto<\/b> es el % de operaciones que ganan. No dice si el sistema gana dinero: puedes acertar el 70 % y perder si las pérdidas son grandes.","El <b>profit factor<\/b> es lo ganado ÷ lo perdido. Por encima de 1, gana; por debajo, pierde.","La <b>esperanza<\/b> (en R) es lo que gana o pierde de media cada operación, medido en riesgo.","El <b>drawdown<\/b> es la mayor caída desde un máximo: te dice cuánto dolor hay que aguantar. Y con menos de 30 operaciones, cualquier cifra es ruido."],"q":[["Un sistema acierta el 70 %. ¿Gana dinero seguro?",["Sí","No: depende de cuánto gana y cuánto pierde","Solo si es un bot"],1],["Un profit factor de 0,84 significa que…",["pierde más de lo que gana","acierta el 84 %","gana el 84 %"],0],["¿Qué mide el drawdown?",["El beneficio total","El número de operaciones","La mayor caída desde un máximo"],2]]},{"id":"l4","nivel":"libre","estado":"publicada","t":"Validar una estrategia","r":"Lección 5","p":["Un <b>backtest<\/b> prueba unas reglas con datos del pasado. Es fácil engañarse: si pruebas mil variantes, alguna saldrá bien por casualidad. Eso es el <b>sobreajuste<\/b>.","Por eso aquí las reglas se escriben y se sellan <b>antes<\/b> de mirar el resultado (pre-registro), y se guardan años aparte, la «reserva», que no se miran hasta el final.","Que una estrategia no apruebe no significa que se apague: en el laboratorio se sigue midiendo en papel, con su etiqueta.","Papel, backtest y dinero real son tres cosas distintas y <b>nunca se suman<\/b>."],"q":[["¿Qué es el sobreajuste?",["Operar demasiado","Ajustar tanto las reglas al pasado que solo funcionan ahí","Un tipo de stop"],1],["¿Para qué se sellan las reglas antes de mirar?",["Para no cambiarlas según el resultado","Para que sean secretas","Para que ganen más"],0],["¿Se pueden sumar los resultados de un backtest y los de papel?",["Sí","Solo si ganan","No, nunca se mezclan"],2]]},{"id":"l5","nivel":"libre","estado":"publicada","t":"Comprobar que los datos son de verdad","r":"Itinerario completado","p":["Cualquiera puede dibujar una curva bonita. La pregunta es: ¿se puede comprobar?","Aquí cada precio de entrada y de salida se compara con la <b>vela de 1 minuto<\/b> del mercado en ese minuto: Yahoo Finance para índices y acciones, Binance para cripto.","Si el precio cae dentro de la vela (o a menos del 0,10 %), cuadra ✔. Si no, se marca con ⚠ y se ve.","Tú mismo puedes buscarlo: mismo símbolo, misma hora en <b>UTC<\/b>, en cualquier gráfico."],"q":[["¿Contra qué se contrasta cada precio?",["La opinión de un experto","La vela de 1 minuto del mercado en ese minuto","El cierre del año"],1],["Si un precio no cuadra…",["se borra","se cambia","se marca con ⚠ y se ve"],2],["¿En qué hora se buscan las velas?",["UTC","Hora de Tokio","Da igual"],0]]}]},{"id":"m2","titulo":"Python para trading: primeros pasos","resumen":"Python en el navegador, con ejemplos de datos históricos. Sin instalar nada.","nivel":"libre","estado":"proximamente","lecciones":[{"id":"py-1-1","nivel":"libre","estado":"proximamente","t":"Mira lo que hizo un bot","resumen":"Una operación simulada, de la señal al resultado."},{"id":"py-2-1","nivel":"libre","estado":"proximamente","t":"Valida los datos antes de creértelos","resumen":"Huecos, duplicados y precios imposibles: cómo cazarlos con código."},{"id":"py-5-3","nivel":"pro","estado":"proximamente","t":"Acertar mucho no es ganar","resumen":"Acierto, ganancia media y pérdida media, con las estrategias reales."},{"id":"py-p0","nivel":"libre","estado":"proximamente","t":"Tu primer backtest: ¿gana dormir comprado?","resumen":"La Prima nocturna, programada por ti, con costes de verdad."}]}]},"productos":{"planes":[{"id":"gratis","titulo":"Gratis","precio":"0 €","nota":"para siempre","estado":"disponible"},{"id":"pro","titulo":"Pro","precio":null,"nota":"precio por decidir","estado":"proximamente"}],"comparacion":[["PULSO: estado y operaciones recientes en papel","✔","✔"],["Gráficos con las operaciones marcadas","✔","✔"],["Actividad y avisos en el navegador","✔","✔"],["Canal público de Telegram (próximamente)","✔","✔"],["Lecciones, mini-retos y glosario","✔","✔"],["Fundamentos de riesgo","✔","✔"],["Laboratorio: Prima nocturna, Breakout intradía y Momentum intradía en S&P 500 y Nasdaq 100","✔","✔"],["Aula de Python: itinerario, proyectos y código de referencia (próximamente)","Los primeros módulos","Completa"],["Tu laboratorio: tus estrategias, con costes y fuera de muestra (próximamente)","—","✔"],["Autopsias de estrategias que fallaron y las trampas de análisis","—","✔"],["Descargar los datos (CSV)","—","✔"]],"productos":[{"id":"aula-python","tipo":"curso","titulo":"Aula de Python para trading","que":"Itinerario completo, proyectos y código de referencia, con ejemplos de datos históricos.","nivel":"pro","estado":"proximamente","precio":null},{"id":"plantillas-bots","tipo":"plantilla","titulo":"Plantillas de bots en Python","que":"El código de un bot para estudiarlo, cambiarlo y probarlo en papel. Para aprender, sin promesas de rentabilidad.","nivel":"pro","estado":"proximamente","precio":null}],"preguntas":[["¿Es dinero real?","No. Todo es papel: dinero simulado con precios reales del mercado. Hoy hay 0 € de dinero real en juego."],["¿Dais señales o recomendaciones?","No. Enseñamos cómo funcionan unos sistemas y sus resultados, con su método y sus pruebas. Nada de esto es una recomendación de compra o venta ni asesoramiento financiero."],["¿Puedo copiar las operaciones con mi dinero?","No. Centinela no es un bróker ni ejecuta órdenes de nadie. Aquí se aprende a construir y a comprobar, no a copiar."],["¿Venderéis bots?","Venderemos plantillas y código para aprender: lo estudias, lo cambias y lo pruebas en papel. Nunca un bot que opere con tu dinero ni con promesas de ganancias."],["¿Qué pasa con mis datos?","No pedimos ninguno. Tu progreso se guarda solo en tu navegador."],["¿Cuándo sale Pro?","Cuando haya cuentas y todo esté revisado, también en lo legal. Mientras tanto, todo lo gratis funciona ya."]]},"sistemas":{"publicos":["atlas"],"fichas":{"atlas":{"ic":"A","cls":"a","lema":"Índices y acciones de EE. UU. + cripto","mercs":["S&P 500","Nasdaq 100","Acciones EE. UU.","Cripto 24/7"],"que":"Opera en papel los índices de EE. UU., algunas grandes empresas y criptomonedas, con varias estrategias pequeñas que se miden por separado."}}},"web":{"bloques":{"proximas_decisiones":false,"mejores_posiciones":false}}};
+const CATALOGO={"secciones":{"secciones":[{"id":"inicio","titulo":"Inicio","menu":true,"estado":"publicada"},{"id":"pulso","titulo":"Pulso","menu":true,"estado":"publicada"},{"id":"cripto","titulo":"Cripto","menu":true,"estado":"publicada"},{"id":"espacio","titulo":"Mi espacio","menu":true,"estado":"publicada"},{"id":"sistemas","titulo":"Archivo ATLAS","menu":false,"estado":"aparcada"},{"id":"atlas","titulo":"ATLAS","menu":false,"padre":"sistemas","estado":"aparcada"},{"id":"opera","titulo":"Opera","menu":true,"estado":"aparcada","motivo":"28-oct: «sigue a ATLAS en papel» se parece a copiar al bot; vuelve solo rehecha como práctica, sin seguir a nadie."},{"id":"resultados","titulo":"Resultados","menu":true,"estado":"publicada"},{"id":"terminal","titulo":"Terminal","menu":true,"estado":"publicada"},{"id":"radar","titulo":"Radar","menu":true,"estado":"publicada"},{"id":"aprende","titulo":"Aprende","menu":true,"estado":"publicada"},{"id":"practica","titulo":"Practica","menu":true,"estado":"publicada"},{"id":"planes","titulo":"Planes","menu":false,"estado":"publicada"},{"id":"transparencia","titulo":"Transparencia","menu":true,"estado":"publicada"}]},"temario":{"niveles":{"libre":"Gratis","registro":"Con registro","pro":"Pro"},"modulos":[{"id":"m1","titulo":"Trading desde cero","resumen":"Qué es un bot, el riesgo, cómo leer resultados, cómo se comprueba cada precio.","nivel":"libre","estado":"publicado","lecciones":[{"id":"l1","nivel":"libre","estado":"publicada","t":"Qué es un bot y qué es operar en papel","r":"Lección 2","p":["Un <b>bot de trading<\/b> es un programa que sigue unas reglas escritas de antemano: cuándo entrar, cuánto arriesgar y cuándo salir. No improvisa ni tiene corazonadas.","Operar en <b>papel<\/b> es operar con dinero simulado pero con precios reales del mercado. Si el bot gana o pierde, no se mueve dinero de verdad.","Sirve para medir una estrategia sin arriesgar: primero se prueba, luego se decide.","<b>Comprar<\/b> (ir largo) gana si el precio sube. <b>Vender en corto<\/b> gana si el precio baja."],"q":[["¿Qué es operar en papel?",["Operar con dinero real pero poco","Operar con dinero simulado y precios reales","Operar inventando los precios"],1],["Un bot de trading…",["adivina el futuro","sigue reglas escritas de antemano","siempre gana"],1],["Si vendes en corto, ganas cuando el precio…",["sube","no se mueve","baja"],2]]},{"id":"l2","nivel":"libre","estado":"publicada","t":"El riesgo: stop, R y tamaño","r":"Simulador de riesgo y lección 3","p":["El <b>stop-loss<\/b> es el precio al que el bot cierra si la operación va mal. Limita la pérdida… casi siempre: si el precio salta de golpe (un hueco), la salida puede ser peor.","<b>1 R<\/b> es lo que se pierde si salta el stop. Medir en R permite comparar operaciones de distinto tamaño: +2 R es ganar el doble de lo que se arriesgaba.","El tamaño se calcula al revés: primero decides cuánto arriesgar (por ejemplo, el 0,2 % de la cuenta) y la distancia al stop te dice cuántas acciones comprar.","<b>Apalancamiento<\/b> es mover más dinero del que tienes: multiplica ganancias y pérdidas. En cada ficha verás el «nocional abierto»; si supera el capital, hay apalancamiento."],"q":[["¿Qué es 1 R?",["Lo que se pierde si salta el stop","El 1 % de la cuenta","El beneficio que se busca"],0],["¿El stop garantiza la pérdida exacta?",["Sí, siempre","No: si el precio salta de golpe puede salir peor","Solo en cripto"],1],["Arriesgando lo mismo, si el stop está más lejos la posición es…",["más grande","igual","más pequeña"],2]]},{"id":"l3","nivel":"libre","estado":"publicada","t":"Leer resultados sin engañarse","r":"Lección 4","p":["El <b>acierto<\/b> es el % de operaciones que ganan. No dice si el sistema gana dinero: puedes acertar el 70 % y perder si las pérdidas son grandes.","El <b>profit factor<\/b> es lo ganado ÷ lo perdido. Por encima de 1, gana; por debajo, pierde.","La <b>esperanza<\/b> (en R) es lo que gana o pierde de media cada operación, medido en riesgo.","El <b>drawdown<\/b> es la mayor caída desde un máximo: te dice cuánto dolor hay que aguantar. Y con menos de 30 operaciones, cualquier cifra es ruido."],"q":[["Un sistema acierta el 70 %. ¿Gana dinero seguro?",["Sí","No: depende de cuánto gana y cuánto pierde","Solo si es un bot"],1],["Un profit factor de 0,84 significa que…",["pierde más de lo que gana","acierta el 84 %","gana el 84 %"],0],["¿Qué mide el drawdown?",["El beneficio total","El número de operaciones","La mayor caída desde un máximo"],2]]},{"id":"l4","nivel":"libre","estado":"publicada","t":"Validar una estrategia","r":"Lección 5","p":["Un <b>backtest<\/b> prueba unas reglas con datos del pasado. Es fácil engañarse: si pruebas mil variantes, alguna saldrá bien por casualidad. Eso es el <b>sobreajuste<\/b>.","Por eso aquí las reglas se escriben y se sellan <b>antes<\/b> de mirar el resultado (pre-registro), y se guardan años aparte, la «reserva», que no se miran hasta el final.","Que una estrategia no apruebe no significa que se apague: en el laboratorio se sigue midiendo en papel, con su etiqueta.","Papel, backtest y dinero real son tres cosas distintas y <b>nunca se suman<\/b>."],"q":[["¿Qué es el sobreajuste?",["Operar demasiado","Ajustar tanto las reglas al pasado que solo funcionan ahí","Un tipo de stop"],1],["¿Para qué se sellan las reglas antes de mirar?",["Para no cambiarlas según el resultado","Para que sean secretas","Para que ganen más"],0],["¿Se pueden sumar los resultados de un backtest y los de papel?",["Sí","Solo si ganan","No, nunca se mezclan"],2]]},{"id":"l5","nivel":"libre","estado":"publicada","t":"Comprobar que los datos son de verdad","r":"Itinerario completado","p":["Cualquiera puede dibujar una curva bonita. La pregunta es: ¿se puede comprobar?","Aquí cada precio de entrada y de salida se compara con la <b>vela de 1 minuto<\/b> del mercado en ese minuto: Yahoo Finance para índices y acciones, Binance para cripto.","Si el precio cae dentro de la vela (o a menos del 0,10 %), cuadra ✔. Si no, se marca con ⚠ y se ve.","Tú mismo puedes buscarlo: mismo símbolo, misma hora en <b>UTC<\/b>, en cualquier gráfico."],"q":[["¿Contra qué se contrasta cada precio?",["La opinión de un experto","La vela de 1 minuto del mercado en ese minuto","El cierre del año"],1],["Si un precio no cuadra…",["se borra","se cambia","se marca con ⚠ y se ve"],2],["¿En qué hora se buscan las velas?",["UTC","Hora de Tokio","Da igual"],0]]}]},{"id":"m2","titulo":"Python para trading: primeros pasos","resumen":"Python en el navegador, con ejemplos de datos históricos. Sin instalar nada.","nivel":"libre","estado":"proximamente","lecciones":[{"id":"py-1-1","nivel":"libre","estado":"proximamente","t":"Mira lo que hizo un bot","resumen":"Una operación simulada, de la señal al resultado."},{"id":"py-2-1","nivel":"libre","estado":"proximamente","t":"Valida los datos antes de creértelos","resumen":"Huecos, duplicados y precios imposibles: cómo cazarlos con código."},{"id":"py-5-3","nivel":"pro","estado":"proximamente","t":"Acertar mucho no es ganar","resumen":"Acierto, ganancia media y pérdida media, con las estrategias reales."},{"id":"py-p0","nivel":"libre","estado":"proximamente","t":"Tu primer backtest: ¿gana dormir comprado?","resumen":"La Prima nocturna, programada por ti, con costes de verdad."}]},{"id":"m3","titulo":"Mercados de Europa: IBEX 35, DAX 40 y CAC 40","resumen":"Qué vigilar en cada índice europeo antes de confiar en un bot que opera ahí.","nivel":"libre","estado":"publicado","lecciones":[{"id":"l6","nivel":"libre","estado":"publicada","t":"Tres índices, tres mercados","r":"Lección 7","p":["El <b>IBEX 35<\/b> reúne las 35 empresas más negociadas de la Bolsa de Madrid; el <b>DAX 40<\/b>, las 40 mayores de Fráncfort; el <b>CAC 40<\/b>, las 40 principales de París. Son índices distintos, con composición, horarios y comportamiento propios.","Un resultado agregado del índice <b>no explica necesariamente<\/b> lo que hace cada acción por separado. Un bot puede «ganarle al IBEX» de media y perder en la mayoría de sus operaciones concretas, o al revés.","Antes de confiar en un bot en estos mercados, conviene mirar el detalle: qué acciones opera, en qué sector se concentra y cómo se comporta cuando el índice sube o baja fuerte.","Próximamente, Centinela añadirá IBEX y CAC como mercados propios junto al Nasdaq, con los mismos contrastes y la misma transparencia que ya ves aquí."],"q":[["¿Cuántas empresas principales agrupa el DAX 40?",["35","40","100"],1],["Si un bot «le gana» al índice de media…",["gana en todas sus operaciones, seguro","puede seguir perdiendo en la mayoría de operaciones concretas","es imposible matemáticamente"],1],["¿Qué mercados añadirá Centinela próximamente junto al Nasdaq?",["IBEX y CAC","Solo criptomonedas","Ninguno más"],0]]},{"id":"l7","nivel":"libre","estado":"publicada","t":"Qué vigilar en cada mercado","r":"Lección 8","p":["En el <b>IBEX 35<\/b>: los costes del instrumento, la liquidez, la concentración sectorial (bancos y energía pesan mucho) y el horario y los huecos de apertura.","En el <b>DAX 40<\/b>: la sensibilidad a la volatilidad, los huecos entre sesiones, la apertura (suele moverse fuerte) y en qué condiciones exactas se activan los stops.","En el <b>CAC 40<\/b>: si los resultados son consistentes operación a operación (no solo de media), la liquidez real del instrumento y cuánto depende todo de una o dos compañías grandes.","Estas tres cosas —costes, huecos y concentración— se repiten en los tres índices; lo que cambia es dónde pesa más cada una."],"q":[["En el IBEX 35, ¿qué sectores suelen concentrar mucho peso?",["Bancos y energía","Videojuegos","Agricultura"],0],["¿Qué hay que revisar especialmente en el DAX 40?",["La volatilidad, los huecos y la apertura","El color del gráfico","Solo el nombre del bot"],0],["En el CAC 40, ¿por qué importa mirar operación a operación y no solo la media?",["Porque la media puede ocultar que depende de pocas compañías o huecos puntuales","Porque la media siempre engaña","Porque no se puede calcular una media"],0]]},{"id":"l8","nivel":"libre","estado":"publicada","t":"Mismo índice, distinto producto","r":"Itinerario de Europa completado","p":["Seguir el IBEX, el DAX o el CAC se puede hacer con una acción, un ETF, un CFD o un futuro. <b>No debe asumirse<\/b> que todos esos productos tienen el mismo horario, el mismo coste, la misma liquidez o el mismo trato de los dividendos.","Por eso, para auditar un bot en estos mercados conviene registrar siempre: el instrumento exacto operado, la hora de señal/entrada/salida con su zona horaria, el precio esperado frente al simulado, el spread y los costes, la volatilidad del momento, y la duración de la operación en R, MAE y MFE.","Esa misma disciplina —precio esperado contra precio real, hora exacta, coste exacto— es la que ya usa Centinela para contrastar el Nasdaq con Yahoo Finance y la cripto con Binance.","Cuando IBEX y CAC estén disponibles como mercados propios, se auditarán con la misma exigencia: nada se da por bueno sin comprobar el dato."],"q":[["Un ETF y un futuro sobre el mismo índice…",["son exactamente iguales siempre","pueden tener distinto horario, coste, liquidez o trato de dividendos","nunca se pueden comparar"],1],["¿Qué hay que registrar para auditar una operación en estos mercados?",["Solo si ganó o perdió","Instrumento, horario con zona horaria, precio esperado vs. simulado, costes y volatilidad","Nada, basta con el resultado final"],1],["¿Qué principio de Centinela se aplicará también a IBEX y CAC?",["Contrastar cada precio contra el dato real del mercado","Publicar resultados sin comprobarlos","Confiar en el bot sin auditoría"],0]]}]},{"id":"m4","titulo":"Validar un bot como un profesional","resumen":"Cuántas operaciones hacen falta para fiarte, por qué backtest, papel y real nunca se mezclan, y el peligro de ajustar un bot al pasado.","nivel":"pro","estado":"proximamente","lecciones":[{"id":"val-1","nivel":"pro","estado":"proximamente","t":"¿Cuántas operaciones hacen falta para fiarte?","resumen":"Tamaño de muestra y por qué 20 operaciones no dicen nada todavía."},{"id":"val-2","nivel":"pro","estado":"proximamente","t":"Backtest, papel y dinero real: tres cosas distintas","resumen":"Por qué nunca se suman sus resultados ni se comparan como si fueran lo mismo."},{"id":"val-3","nivel":"pro","estado":"proximamente","t":"El peligro de ajustar un bot al pasado","resumen":"Sobreajuste: cuando una estrategia solo funciona en los datos con los que se diseñó."},{"id":"val-4","nivel":"pro","estado":"proximamente","t":"Regímenes de mercado: no todo vale siempre","resumen":"Por qué una estrategia que funciona en tendencia puede fallar en lateral, y viceversa."}]},{"id":"m5","titulo":"Ingeniería y ejecución de un bot","resumen":"Datos fiables, cuánto arriesgar por operación y los dos tableros que hay que vigilar: salud técnica y salud financiera.","nivel":"pro","estado":"proximamente","lecciones":[{"id":"ing-1","nivel":"pro","estado":"proximamente","t":"Sin datos fiables no hay auditoría fiable","resumen":"Huecos, duplicados y precios imposibles: cómo detectarlos antes de confiar en nada."},{"id":"ing-2","nivel":"pro","estado":"proximamente","t":"Cuánto arriesgar en cada operación","resumen":"Dimensionamiento de posiciones: del riesgo aceptado al número de unidades."},{"id":"ing-3","nivel":"pro","estado":"proximamente","t":"Dos tableros distintos: salud técnica y salud financiera","resumen":"Por qué «el bot funciona» y «el bot gana dinero» son preguntas diferentes."}]},{"id":"m6","titulo":"Construye tu primer bot en Python","resumen":"De cero a un bot completo: carpetas, tu primera estrategia (SMA), riesgo, ejecución, costes y métricas, archivo a archivo.","nivel":"pro","estado":"proximamente","lecciones":[{"id":"bot-1","nivel":"pro","estado":"proximamente","t":"El árbol de carpetas de un bot real","resumen":"Qué archivo hace qué, y por qué separar responsabilidades evita desastres."},{"id":"bot-2","nivel":"pro","estado":"proximamente","t":"Tu primera estrategia: SMA, deliberadamente sencilla","resumen":"Por qué empezar simple es una decisión técnica, no una limitación."},{"id":"bot-3","nivel":"pro","estado":"proximamente","t":"Riesgo, ejecución y costes en código","resumen":"Cómo se traduce «arriesgo el 1 %» en líneas de Python que no fallan."},{"id":"bot-4","nivel":"pro","estado":"proximamente","t":"Recorrido guiado: data_feed, strategy, risk_manager, execution, main, metrics","resumen":"Qué aprender de cada módulo, con el taller guiado archivo a archivo."}]},{"id":"m7","titulo":"Arquitectura profesional: del prototipo a un sistema auditado","resumen":"El mapa completo de módulos, los patrones que evitan desastres y qué hacer cuando algo falla a mitad de una orden.","nivel":"pro","estado":"proximamente","lecciones":[{"id":"arq-1","nivel":"pro","estado":"proximamente","t":"El mapa completo de módulos de un bot profesional","resumen":"config, validador de datos, portfolio, monitor, kill switch y más: para qué sirve cada uno."},{"id":"arq-2","nivel":"pro","estado":"proximamente","t":"Patrones que evitan desastres","resumen":"Idempotencia (no duplicar órdenes), interruptor de emergencia y conciliación."},{"id":"arq-3","nivel":"pro","estado":"proximamente","t":"Estados de una orden y qué hacer si algo falla","resumen":"Un incidente real explicado paso a paso: timeout en una compra."}]},{"id":"m8","titulo":"Leer el mercado antes de automatizarlo","resumen":"Velas, soportes y rupturas a fondo, gaps y volumen, y cómo convertir lo que ves en el gráfico en reglas programables.","nivel":"libre","estado":"proximamente","lecciones":[{"id":"mer-1","nivel":"libre","estado":"proximamente","t":"Velas, soportes y rupturas, otra vez pero a fondo","resumen":"Más allá de lo básico: estructura del precio y rupturas verdaderas o falsas."},{"id":"mer-2","nivel":"libre","estado":"proximamente","t":"Gaps, volumen y liquidez","resumen":"Por qué importan y cómo se relacionan entre ellos."},{"id":"mer-3","nivel":"libre","estado":"proximamente","t":"Volatilidad, régimen y psicología del trader","resumen":"El contexto que cambia qué estrategia tiene sentido usar, y los errores de decisión más comunes."}]},{"id":"m9","titulo":"Diccionario visual y las 20 reglas de oro","resumen":"Consulta rápida: todos los términos del trading explicados con ejemplos visuales, y las reglas de oro que resumen todo lo anterior.","nivel":"libre","estado":"proximamente","lecciones":[{"id":"dic-1","nivel":"libre","estado":"proximamente","t":"Diccionario visual de trading","resumen":"Órdenes, capital y riesgo, métricas, estrategias e indicadores, explicados con ejemplos."},{"id":"dic-2","nivel":"libre","estado":"proximamente","t":"Las 20 reglas de oro","resumen":"El resumen final: lo que nunca hay que olvidar antes de activar un bot."}]}]},"productos":{"planes":[{"id":"gratis","titulo":"Gratis","precio":"0 €","nota":"para siempre","estado":"disponible"},{"id":"pro","titulo":"Pro","precio":null,"nota":"precio por decidir","estado":"proximamente"}],"comparacion":[["PULSO: estado y operaciones recientes en papel","✔","✔"],["Gráficos con las operaciones marcadas","✔","✔"],["Actividad y avisos en el navegador","✔","✔"],["Canal público de Telegram (próximamente)","✔","✔"],["Lecciones, mini-retos y glosario","✔","✔"],["Fundamentos de riesgo","✔","✔"],["Laboratorio: Prima nocturna, Breakout intradía y Momentum intradía en S&P 500 y Nasdaq 100","✔","✔"],["Aula de Python: itinerario, proyectos y código de referencia (próximamente)","Los primeros módulos","Completa"],["Tu laboratorio: tus estrategias, con costes y fuera de muestra (próximamente)","—","✔"],["Autopsias de estrategias que fallaron y las trampas de análisis","—","✔"],["Descargar los datos (CSV)","—","✔"]],"productos":[{"id":"aula-python","tipo":"curso","titulo":"Aula de Python para trading","que":"Itinerario completo, proyectos y código de referencia, con ejemplos de datos históricos.","nivel":"pro","estado":"proximamente","precio":null},{"id":"plantillas-bots","tipo":"plantilla","titulo":"Plantillas de bots en Python","que":"El código de un bot para estudiarlo, cambiarlo y probarlo en papel. Para aprender, sin promesas de rentabilidad.","nivel":"pro","estado":"proximamente","precio":null}],"preguntas":[["¿Es dinero real?","No. Todo es papel: dinero simulado con precios reales del mercado. Hoy hay 0 € de dinero real en juego."],["¿Dais señales o recomendaciones?","No. Enseñamos cómo funcionan unos sistemas y sus resultados, con su método y sus pruebas. Nada de esto es una recomendación de compra o venta ni asesoramiento financiero."],["¿Puedo copiar las operaciones con mi dinero?","No. Centinela no es un bróker ni ejecuta órdenes de nadie. Aquí se aprende a construir y a comprobar, no a copiar."],["¿Venderéis bots?","Venderemos plantillas y código para aprender: lo estudias, lo cambias y lo pruebas en papel. Nunca un bot que opere con tu dinero ni con promesas de ganancias."],["¿Qué pasa con mis datos?","No pedimos ninguno. Tu progreso se guarda solo en tu navegador."],["¿Cuándo sale Pro?","Cuando haya cuentas y todo esté revisado, también en lo legal. Mientras tanto, todo lo gratis funciona ya."]]},"sistemas":{"publicos":["atlas"],"fichas":{"atlas":{"ic":"A","cls":"a","lema":"Índices y acciones de EE. UU. + cripto","mercs":["S&P 500","Nasdaq 100","Acciones EE. UU.","Cripto 24/7"],"que":"Opera en papel los índices de EE. UU., algunas grandes empresas y criptomonedas, con varias estrategias pequeñas que se miden por separado."}}},"web":{"bloques":{"proximas_decisiones":false,"mejores_posiciones":false}}};
 let D = /*__DATOS__*/null;
-const VIVO = {"url": "datos.json", "alternativa": "https://raw.githubusercontent.com/gonzacos88-netizen/laboratorio-trader-junior/gh-pages/datos.json", "velas_alternativa": "https://raw.githubusercontent.com/gonzacos88-netizen/laboratorio-trader-junior/gh-pages/velas.json", "cada": 60000, "max_edad": 1500000, "publico": true};   /* {url, cada, max_edad} = en directo (pide los datos); null = foto con los datos dentro */
+const VIVO = {"url": "datos.json", "alternativa": "https://raw.githubusercontent.com/gonzacos88-netizen/laboratorio-trader-junior/gh-pages/datos.json", "velas_alternativa": "https://raw.githubusercontent.com/gonzacos88-netizen/laboratorio-trader-junior/gh-pages/velas.json", "cada": 60000, "max_edad": 1500000};   /* {url, cada, max_edad} = en directo (pide los datos); null = foto con los datos dentro */
 (function(){
   const PUBLICO=Boolean(VIVO&&VIVO.publico);
   const API_MERCADO=PUBLICO?'https://centinela-mercado.gonzacos88.workers.dev':'';
@@ -1312,10 +1367,10 @@ const VIVO = {"url": "datos.json", "alternativa": "https://raw.githubusercontent
     const media=rs.reduce((a,b)=>a+b,0)/rs.length,W=640,H=210,todos=res.flatMap(([,x])=>x.c),y0=Math.min(...todos),y1=Math.max(...todos);
     const X=i=>i/(rs.length)*W,Y=v=>8+(1-(v-y0)/((y1-y0)||1))*(H-16);
     const COL={0.5:'#2bd48a',1:'#7dd3fc',2:'#fbbf24',5:'#fb923c',10:'#ff5470'};
-    const lineas=res.map(([r,x])=>`<path d="${x.c.map((v,i)=>(i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)).join(' ')}" fill="none" vector-effect="non-scaling-stroke" stroke="${r===R.r?'#22d3ee':COL[r]||'#a78bfa'}" stroke-width="${r===R.r?3:1.3}" opacity="${r===R.r?1:.6}"/>`).join('');
+    const lineas=res.map(([r,x])=>`<path d="${x.c.map((v,i)=>(i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)).join(' ')}" fill="none" vector-effect="non-scaling-stroke" stroke="${r===R.r?'#91d8d2':COL[r]||'#bec9e8'}" stroke-width="${r===R.r?3:1.3}" opacity="${r===R.r?1:.6}"/>`).join('');
     const ev=R.r>2?'<p class="baja">⚠ Un riesgo mayor por operación puede agravar mucho las rachas de pérdidas. Compara los escenarios.</p>':R.r<=1?'<p>Un riesgo menor reduce la exposición prevista, pero no garantiza que la cuenta resista cualquier racha o salto de precio.</p>':'<p>Compara cómo cambia la caída al modificar el riesgo; ningún tamaño elimina las pérdidas.</p>';
     return `<svg class="grafica" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" style="height:230px" role="img" aria-label="Cuenta con distintos riesgos por operación"><line class="base" vector-effect="non-scaling-stroke" x1="0" x2="${W}" y1="${Y(R.cap)}" y2="${Y(R.cap)}"/>${lineas}</svg>
-      <div class="leyenda">${res.map(([r])=>`<span><i style="background:${r===R.r?'#22d3ee':COL[r]||'#a78bfa'}"></i>${nf(r,1)} %${r===R.r?' (tú)':''}</span>`).join('')}</div>
+      <div class="leyenda">${res.map(([r])=>`<span><i style="background:${r===R.r?'#91d8d2':COL[r]||'#bec9e8'}"></i>${nf(r,1)} %${r===R.r?' (tú)':''}</span>`).join('')}</div>
       <div class="tabla" style="margin-top:10px"><table><thead><tr><th>Riesgo por operación</th><th class="n">Cuenta final</th><th class="n">Peor caída</th><th class="n">Para recuperarla</th></tr></thead><tbody>
         ${res.map(([r,x])=>`<tr${r===R.r?' style="outline:1px solid var(--cian)"':''}><td><b>${nf(r,1)} %</b>${r===R.r?' <span class="tenue">(tú)</span>':''}</td><td class="n ${cl(x.fin-R.cap)}">${nf(x.fin,0)} €</td><td class="n baja">${nf(x.dd)} %</td><td class="n">+${nf(x.recup)} %</td></tr>`).join('')}</tbody></table></div>
       <div class="diag" style="margin-top:12px"><p>Con un <b>${nf(R.r,1)} %</b> por operación, ${nf(R.cap,0)} € habrían terminado en <b class="${cl(u.fin-R.cap)}">${nf(u.fin,0)} €</b> (${fs((u.fin/R.cap-1)*100)} %).
@@ -1935,7 +1990,7 @@ const VIVO = {"url": "datos.json", "alternativa": "https://raw.githubusercontent
     else if(k==='pulso')vistaPulso();
     else if(PUBLICO&&k==='terminal')vistaTerminalMision();
     else if(PUBLICO&&k==='practica')vistaPracticaSinDatos();
-    else if(PUBLICO&&k==='espacio')vistaEspacio();
+    else if(k==='espacio')vistaEspacio();
     if(scroll)window.scrollTo({top:0});
   }
   window.addEventListener('hashchange',()=>{if(dlg.open&&location.hash==='#aprende')cierra();ir((location.hash||'#inicio').slice(1));});
@@ -2057,7 +2112,7 @@ const VIVO = {"url": "datos.json", "alternativa": "https://raw.githubusercontent
     return P;}
   function nebulosa(W,H){  /* nubes de color, pintadas una vez a baja resolución: al ampliarlas quedan suaves */
     const cv=document.createElement('canvas'),w=Math.round(W*1.12),h=Math.round(H*1.12);cv.width=w;cv.height=h;const n=cv.getContext('2d');
-    let s=33;const rn=()=>{s=(s*16807)%2147483647;return s/2147483647;};const cols=['124,58,237','219,39,119','37,99,235','34,211,238','168,85,247','236,72,153'];
+    let s=33;const rn=()=>{s=(s*16807)%2147483647;return s/2147483647;};const cols=['30,75,120','35,102,125','38,117,129','65,146,153','48,85,145','70,130,135'];
     n.globalCompositeOperation='lighter';
     for(let i=0;i<110;i++){const u=rn(),x=w*u,y=h*(.5+.22*Math.sin(u*3.4+.8)+(rn()-.5)*.3),r=w*(.04+.2*rn()),c=cols[Math.floor(rn()*cols.length)],a=.035+.075*rn();
       const gr=n.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,`rgba(${c},${a})`);gr.addColorStop(1,`rgba(${c},0)`);n.fillStyle=gr;n.fillRect(x-r,y-r,2*r,2*r);}
@@ -2076,7 +2131,7 @@ uniform vec2 uRes;uniform float uT;uniform float uP;uniform float uW;uniform flo
 float h21(vec2 p){p=fract(p*vec2(233.34,851.73));p+=dot(p,p+23.45);return fract(p.x*p.y);}
 float vn(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h21(i),h21(i+vec2(1.,0.)),f.x),mix(h21(i+vec2(0.,1.)),h21(i+vec2(1.,1.)),f.x),f.y);}
 float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*vn(p);p=mat2(1.6,1.2,-1.2,1.6)*p+vec2(3.1,1.7);a*=.5;}return v;}
-vec3 pal(float x){x=clamp(x,0.,1.);vec3 c1=vec3(.03,.07,.30),c2=vec3(.34,.13,.68),c3=vec3(.84,.22,.60),c4=vec3(1.,.70,.36);
+vec3 pal(float x){x=clamp(x,0.,1.);vec3 c1=vec3(.02,.07,.18),c2=vec3(.08,.18,.32),c3=vec3(.12,.32,.38),c4=vec3(.30,.48,.45);
   if(x<.35)return mix(c1,c2,x/.35);if(x<.7)return mix(c2,c3,(x-.35)/.35);return mix(c3,c4,(x-.7)/.3);}
 float estr(vec2 p,float u){vec2 g=floor(p),f=fract(p)-.5;float h=h21(g);if(h<u)return 0.;
   vec2 o=vec2(h21(g+1.3),h21(g+7.1))-.5;return smoothstep(.08,0.,length(f-o*.7))*(.55+.45*sin(uT*(1.+h*3.)+h*40.))*(h-u)/(1.-u)*3.;}
@@ -2101,25 +2156,25 @@ void main(){
   col+=vec3(.92,.95,1.)*estr(uvr*55.+uM*3.+vec2(t*.12*fl,0.),.982)*.9;
   col+=vec3(.75,.82,1.)*estr(uvr*110.+uM*1.5+vec2(t*.06*fl,0.),.988)*.55;
   vec2 dv=uv-cp;float d=length(dv);
-  col+=vec3(1.,.70,.32)*exp(-d*5.)*.5*rayo+vec3(.30,.13,.60)*exp(-d*1.8)*.22;
-  col+=vec3(1.,.70,.32)*pow(max(0.,sin(atan(dv.y,dv.x)*6.+t*.15)),24.)*exp(-d*2.6)*.22*rayo;
+  col+=vec3(.48,.75,.73)*exp(-d*5.)*.32*rayo+vec3(.08,.24,.31)*exp(-d*1.8)*.22;
+  col+=vec3(.48,.75,.73)*pow(max(0.,sin(atan(dv.y,dv.x)*6.+t*.15)),24.)*exp(-d*2.6)*.16*rayo;
   vec2 gp=uv-vec2(-.05,.36);gp=mat2(.94,-.34,.34,.94)*gp;gp.y/=.42;float gr=length(gp),gt=atan(gp.y,gp.x);
   float arms=.5+.5*cos(2.*(gt-2.6*log(gr+.002))+t*.06);
   float gal=(exp(-gr*16.)*(.45+.55*arms)+exp(-gr*70.)*1.4)*(1.-uMov)*(1.-smoothstep(.08,.22,uP));
-  col+=mix(vec3(.39,.17,.78),vec3(1.,.9,.75),exp(-gr*35.))*gal*.45;
+  col+=mix(vec3(.18,.37,.45),vec3(.80,.93,.91),exp(-gr*35.))*gal*.45;
   if(uW>.002){
     vec3 neb=vec3(0.);float sp=t*.09;
     for(int i=0;i<3;i++){float fi=float(i),sd=fract(sp+fi/3.),sc=mix(3.4,.55,sd),al=sin(3.14159*sd);
       vec2 p2=uv*sc+vec2(fi*7.3,fi*3.1)+vec2(sin(t*.07+fi),cos(t*.05+fi*2.))*.35;
       vec2 ww=vec2(fbm(p2+t*.06),fbm(p2+vec2(4.2,1.7)-t*.05));
       float nn=fbm(p2+1.8*ww),du=fbm(p2*2.1+3.*ww+t*.03);
-      vec3 cc=mix(vec3(.10,.38,1.),vec3(1.,.36,.80),smoothstep(.38,.72,ww.x));
-      cc=mix(cc,vec3(.92,.62,1.),smoothstep(.55,.9,ww.y)*.6);
-      cc=mix(cc,vec3(1.,.22,.38),smoothstep(.68,.95,nn)*.4);
+      vec3 cc=mix(vec3(.08,.25,.48),vec3(.16,.48,.50),smoothstep(.38,.72,ww.x));
+      cc=mix(cc,vec3(.32,.54,.56),smoothstep(.55,.9,ww.y)*.6);
+      cc=mix(cc,vec3(.25,.42,.49),smoothstep(.68,.95,nn)*.4);
       float den=smoothstep(.3,.88,nn)*(1.-smoothstep(.5,.82,du)*.85);
       neb+=cc*den*al*1.45+vec3(.9,.85,1.)*pow(den,6.)*al*.35;}
     vec2 nc=vec2(-.18+.05*sin(t*.1),-.04+.04*cos(t*.13));float dc=length(uv-nc);
-    neb+=vec3(1.,.93,.97)*exp(-dc*9.)*.8+vec3(1.,.5,.8)*exp(-dc*2.6)*.15;
+    neb+=vec3(.78,.93,.92)*exp(-dc*9.)*.8+vec3(.26,.55,.57)*exp(-dc*2.6)*.15;
     neb+=vec3(1.)*estr(uv*45.+vec2(t*.4,t*.1),.975)*1.3+vec3(.8,.85,1.)*estr(uv*90.-vec2(t*.25,0.),.985)*.8;
     neb=neb/(1.+neb*.4);col=mix(col,neb*1.15+col*.15,uW);
   }
@@ -2591,8 +2646,8 @@ void main(){
   function vistaTerminalMision(){
     const el=$('v-terminal');if(!el||el.querySelector('iframe'))return;
     const ruta='terminal/mercado.html'+(PUBLICO?'?publico=1':'');
-    el.innerHTML=`<div class="term-cab"><div><p class="ceja">Terminal Cósmico · solo lectura</p><h2 class="tit">Radar Nasdaq y cripto</h2>
-      <p class="intro">Gráficos de mercado en solo lectura, independientes de las cuentas. Yahoo Finance y Binance Spot pueden tener retraso; no son precios de ejecución.</p></div>
+    el.innerHTML=`<div class="term-cab"><div><p class="ceja">Centinela · Mercado</p><h2 class="tit">Tu radar de mercado.</h2>
+      <p class="intro">Explora Nasdaq y cripto con datos de Yahoo Finance y Binance Spot. Las cotizaciones pueden tener retraso y no son precios de ejecución.</p></div>
       <a class="btn sec peq" href="${ruta}" target="_blank" rel="noopener">Abrir en pantalla completa ↗</a></div>
       <p class="academia-nota">Cripto usa pares spot con USDT. No se conectan operaciones, cuentas ni automatización a este terminal.</p>
       <iframe class="term-marco" id="term-marco" src="${ruta}" title="Radar Nasdaq y cripto de solo lectura"></iframe>`;
@@ -2645,7 +2700,14 @@ void main(){
   const estadoV=v=>!v.abierto?'<span class="chip parado" title="Mercado cerrado: último precio de la sesión">cerrado</span>'
     :v.retraso_s>120?`<span class="chip prueba" title="Retraso medido al generar esta copia">${Math.round(v.retraso_s/60)} min</span>`:'';
   async function vistaEspacio(){
-    const el=$('v-espacio');if(!el)return;
+    const raiz=$('v-espacio');if(!raiz)return;
+    if(!raiz.querySelector('#esp-mercado')){
+      raiz.innerHTML=`<div class="cab-v"><p class="ceja">Centinela · Mi espacio</p><h2 class="tit">Un lugar para avanzar a tu ritmo.</h2>
+        <p class="intro">Practica, registra tus ideas y revisa lo aprendido. El diario vive en este navegador; todavía no hay cuentas ni sincronización entre dispositivos.</p></div>
+        <div id="diario-wrap"></div><div id="esp-mercado"></div>`;
+      iniciarDiario();
+    }
+    const el=$('esp-mercado');
     const E=await cargaEspacio();
     if(!E||!E.valores||!E.valores.length){el.innerHTML=`<div class="cab-v"><p class="ceja">Mi espacio</p><h2 class="tit">Tu lista de mercado</h2><p class="intro">${PUBLICO?'La conexión de esta lista aún no está disponible en la web pública. Consulta el Terminal para ver el mercado.':'No han llegado los precios. Se reintenta solo en un minuto.'}</p></div>`;return;}
     const lista=listaDe(E),[vk,vt,vr,filtro,o0,d0]=VISTAS_E.find(x=>x[0]===EUI.vista)||VISTAS_E[0];
@@ -2884,6 +2946,101 @@ void main(){
     }catch(e){if($('vuelo-wrap')!==el)return;console.warn('Simulador:',e.message);
       el.innerHTML=`<p class="aviso-l" role="status">No se pudo cargar el histórico para simular: ${esc(e.message)}.</p><button class="btn sec peq" id="vuelo-reintentar">Reintentar</button>`;
       $('vuelo-reintentar').onclick=iniciarVuelo;}
+  }
+  const DIARIO_CLAVE='centinela.diario.v1',DIARIO_MAX=500;
+  const DIARIO_CONTEXTO=['Observación','Simulación','Otro'];
+  function diarioLeer(){
+    let bruto;
+    try{bruto=localStorage.getItem(DIARIO_CLAVE);}
+    catch(e){console.warn('Diario: almacenamiento no disponible:',e.message);throw new Error('El navegador no permite leer el diario.');}
+    if(bruto===null)return [];
+    let datos;
+    try{datos=JSON.parse(bruto);}
+    catch(e){console.warn('Diario: datos no válidos:',e.message);throw new Error('El diario guardado no se puede leer. No se han borrado los datos.');}
+    if(!Array.isArray(datos)||datos.length>DIARIO_MAX||!datos.every(x=>x&&
+      ['id','fecha','activo','contexto','motivo','emocion','aprendizaje','guardado'].every(k=>typeof x[k]==='string')&&
+      /^\d{4}-\d{2}-\d{2}$/.test(x.fecha)&&DIARIO_CONTEXTO.includes(x.contexto)&&
+      x.id.length>0&&x.id.length<=100&&x.activo.length>0&&x.activo.length<=40&&
+      x.motivo.length>0&&x.motivo.length<=1500&&x.emocion.length<=300&&x.aprendizaje.length<=1500&&
+      Number.isFinite(Date.parse(x.guardado)))||new Set(datos.map(x=>x.id)).size!==datos.length)
+      throw new Error('El formato del diario guardado no es válido. No se han borrado los datos.');
+    return datos;
+  }
+  function diarioEscribir(datos){
+    try{localStorage.setItem(DIARIO_CLAVE,JSON.stringify(datos));}
+    catch(e){console.warn('Diario: no se pudo guardar:',e.message);throw new Error('No se pudo guardar el diario en este navegador.');}
+  }
+  function iniciarDiario(){
+    const raiz=$('diario-wrap');if(!raiz)return;
+    raiz.innerHTML=`<section class="panel diario" aria-labelledby="diario-titulo"><div class="panel-cab" id="diario-titulo">Diario de aprendizaje <span class="der">solo en este navegador</span></div>
+      <div class="panel-cuerpo"><div><p class="diario-aviso">Anota una idea, una práctica o una revisión. Se guarda solo en este navegador, sin cifrar, sin cuenta ni sincronización; otras personas con acceso a este dispositivo podrían leerla. Al borrar los datos del navegador podrías perderla. No incluyas información sensible.</p>
+        <form id="diario-form"><div class="diario-campos"><label>Fecha<input name="fecha" type="date" required></label>
+        <label>Activo o tema<input name="activo" maxlength="40" required placeholder="Ej. QQQ o gestión del riesgo"></label></div>
+        <label>Contexto<select name="contexto">${DIARIO_CONTEXTO.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join('')}</select></label>
+        <label>¿Qué observaste o por qué tomaste esa decisión?<textarea name="motivo" maxlength="1500" required></textarea></label>
+        <label>¿Cómo te sentiste? <span class="tenue">Opcional</span><input name="emocion" maxlength="300"></label>
+        <label>¿Qué aprendiste o mejorarías? <span class="tenue">Opcional</span><textarea name="aprendizaje" maxlength="1500"></textarea></label>
+        <div class="diario-acciones"><button class="btn prim peq" type="submit" id="diario-guardar">Guardar entrada</button><button class="btn sec peq" type="button" id="diario-cancelar" hidden>Cancelar edición</button></div>
+        <p class="diario-estado" id="diario-estado" role="status" aria-live="polite"></p></form></div>
+        <div class="diario-lista"><h3>Tus entradas</h3><div class="diario-acciones"><button class="btn sec peq" type="button" id="diario-exportar">Descargar diario (JSON)</button></div><div id="diario-entradas"></div></div></div></section>`;
+    const form=$('diario-form'),estado=$('diario-estado'),entradas=$('diario-entradas'),exportar=$('diario-exportar'),cancelar=$('diario-cancelar');
+    let editando=null,original=null;
+    const hoy=()=>{const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10);};
+    const mensaje=(s,error=false)=>{estado.textContent=s;estado.classList.toggle('error',error);};
+    const cancelarEdicion=()=>{editando=null;original=null;form.reset();form.elements.fecha.value=hoy();$('diario-guardar').textContent='Guardar entrada';cancelar.hidden=true;};
+    const hayBorrador=()=>['activo','motivo','emocion','aprendizaje'].some(k=>form.elements[k].value.trim());
+    function pintarDiario(){
+      try{
+        const datos=diarioLeer().sort((a,b)=>b.guardado.localeCompare(a.guardado));
+        exportar.disabled=!datos.length;
+        entradas.innerHTML=datos.map(x=>`<article class="diario-entrada"><h4>${esc(x.activo)}</h4><small>${esc(x.fecha)} · ${esc(x.contexto)}</small>
+          <p><b>Decisión u observación:</b> ${esc(x.motivo)}</p>${x.emocion?`<p><b>Cómo me sentí:</b> ${esc(x.emocion)}</p>`:''}
+          ${x.aprendizaje?`<p><b>Aprendizaje:</b> ${esc(x.aprendizaje)}</p>`:''}
+          <div class="diario-acciones"><button type="button" class="btn sec peq" data-diario-editar="${esc(x.id)}">Editar</button>
+          <button type="button" class="btn sec peq" data-diario-borrar="${esc(x.id)}">Eliminar</button></div></article>`).join('')||'<p class="diario-aviso">Todavía no hay entradas. Empieza por una observación o una práctica.</p>';
+      }catch(e){exportar.disabled=true;entradas.textContent='El diario no está disponible.';mensaje(e.message,true);}
+    }
+    form.onsubmit=e=>{
+      e.preventDefault();
+      try{
+        const datos=diarioLeer(),fecha=form.elements.fecha.value,activo=form.elements.activo.value.trim(),contexto=form.elements.contexto.value,
+          motivo=form.elements.motivo.value.trim(),emocion=form.elements.emocion.value.trim(),aprendizaje=form.elements.aprendizaje.value.trim();
+        if(!/^\d{4}-\d{2}-\d{2}$/.test(fecha)||!activo||activo.length>40||!motivo||motivo.length>1500||
+          emocion.length>300||aprendizaje.length>1500||!DIARIO_CONTEXTO.includes(contexto))throw new Error('Completa una fecha, un activo o tema y una observación válidos.');
+        const indice=editando===null?-1:datos.findIndex(x=>x.id===editando);
+        if(editando!==null&&indice<0)throw new Error('La entrada ya no está disponible. Copia el texto antes de cancelar.');
+        if(indice>=0&&JSON.stringify(datos[indice])!==original)throw new Error('Esta entrada cambió en otra pestaña. Copia tu borrador antes de volver a abrirla.');
+        if(indice<0&&datos.length>=DIARIO_MAX)throw new Error('El diario ha alcanzado 500 entradas. Descárgalo antes de eliminar alguna.');
+        const id=indice>=0?editando:(crypto.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random().toString(36).slice(2)}`);
+        const entrada={id,fecha,activo,contexto,motivo,emocion,aprendizaje,guardado:new Date().toISOString()};
+        if(indice<0)datos.push(entrada);else datos[indice]=entrada;
+        diarioEscribir(datos);cancelarEdicion();pintarDiario();mensaje('Entrada guardada en este navegador.');
+      }catch(e){mensaje(e.message,true);}
+    };
+    cancelar.onclick=()=>{if(confirm('¿Descartar los cambios de esta edición?')){cancelarEdicion();mensaje('Edición cancelada.');}};
+    entradas.onclick=e=>{
+      const boton=e.target.closest('[data-diario-editar],[data-diario-borrar]');if(!boton)return;
+      try{
+        const datos=diarioLeer(),id=boton.dataset.diarioEditar||boton.dataset.diarioBorrar,x=datos.find(d=>d.id===id);
+        if(!x)throw new Error('La entrada ya no está disponible. Actualiza la página.');
+        if(boton.dataset.diarioEditar){
+          if(hayBorrador()&&!confirm('¿Descartar el texto del formulario y abrir esta entrada?'))return;
+          editando=id;original=JSON.stringify(x);for(const k of ['fecha','activo','contexto','motivo','emocion','aprendizaje'])form.elements[k].value=x[k];
+          $('diario-guardar').textContent='Guardar cambios';cancelar.hidden=false;mensaje('Editando entrada.');form.elements.activo.focus();
+        }else if(confirm(`¿Eliminar la entrada de ${x.activo} del ${x.fecha}?${editando===id?' También se descartará la edición abierta.':''}`)){
+          diarioEscribir(datos.filter(d=>d.id!==id));if(editando===id)cancelarEdicion();pintarDiario();mensaje('Entrada eliminada de este navegador.');
+        }
+      }catch(error){mensaje(error.message,true);}
+    };
+    exportar.onclick=()=>{
+      try{
+        const datos=diarioLeer();if(!datos.length)throw new Error('Todavía no hay entradas para descargar.');
+        const url=URL.createObjectURL(new Blob([JSON.stringify({version:1,entradas:datos},null,2)],{type:'application/json'}));
+        const a=document.createElement('a');a.href=url;a.download='centinela-diario.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+        mensaje('Descarga preparada. El archivo contiene tus notas sin cifrar.');
+      }catch(e){mensaje(e.message,true);}
+    };
+    cancelarEdicion();pintarDiario();
   }
   /* ── arranque ── */
   const ini=(location.hash||'#inicio').slice(1);

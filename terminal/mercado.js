@@ -188,17 +188,18 @@
     if (!window.LightweightCharts || !window.IND) throw new Error('No se pudo cargar la biblioteca del gráfico.');
     chart = LightweightCharts.createChart($('grafico'), {
       autoSize: true,
-      layout: { background: { type: 'solid', color: '#0a0f1d' }, textColor: '#9aa8bf' },
-      grid: { vertLines: { color: 'rgba(125,145,185,.07)' }, horzLines: { color: 'rgba(125,145,185,.09)' } },
-      rightPriceScale: { borderColor: '#282f49' },
-      timeScale: { borderColor: '#282f49', timeVisible: true, secondsVisible: false },
+      layout: { background: { type: 'solid', color: 'transparent' }, textColor: '#8a97ac' },
+      grid: { vertLines: { color: 'rgba(145,216,210,.06)' }, horzLines: { color: 'rgba(145,216,210,.08)' } },
+      rightPriceScale: { borderColor: '#27364a' },
+      timeScale: { borderColor: '#27364a', timeVisible: true, secondsVisible: false },
     });
+    // mismos verdes/rojos que el resto de CENTINELA (--sube/--baja), para que suba/baja signifique lo mismo en toda la web
     velas = chart.addCandlestickSeries({
-      upColor: '#51d9b2', downColor: '#f07492', borderVisible: false,
-      wickUpColor: '#51d9b2', wickDownColor: '#f07492',
+      upColor: '#2bd48a', downColor: '#ff5470', borderVisible: false,
+      wickUpColor: '#2bd48a', wickDownColor: '#ff5470',
     });
-    ema20 = chart.addLineSeries({ color: '#e7bf6b', lineWidth: 2, priceLineVisible: false, lastValueVisible: false });
-    ema50 = chart.addLineSeries({ color: '#83a9ff', lineWidth: 2, priceLineVisible: false, lastValueVisible: false });
+    ema20 = chart.addLineSeries({ color: '#fbbf24', lineWidth: 2, priceLineVisible: false, lastValueVisible: false });
+    ema50 = chart.addLineSeries({ color: '#bec9e8', lineWidth: 2, priceLineVisible: false, lastValueVisible: false });
     chart.subscribeClick(p => {
       if (!dibujando || reproduciendo) return;
       if (!p.point || !p.time) {

@@ -1,38 +1,84 @@
-:root{color-scheme:dark;font-family:Inter,system-ui,sans-serif;background:#070a15;color:#e8ecfa}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 82% 0,rgba(84,58,151,.2),transparent 42%),#070a15}
-.terminal{max-width:1600px;margin:auto;padding:22px}
-.cabecera{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
-.etiqueta{margin:0 0 7px;font-size:10px;font-weight:700;letter-spacing:.16em;color:#9e9abf}
-h1{font-size:clamp(24px,3vw,36px);letter-spacing:-.04em;margin:0}h1 span{color:#8ad9f6}
-.subtitulo{color:#9aa8bf;font-size:13px;margin:6px 0 0}
-button,select{border:1px solid #343953;border-radius:8px;background:#151b2e;color:#eef3ff;font:inherit;padding:9px 12px}
-button{cursor:pointer}button:hover,select:hover{border-color:#69d5e6}button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid #8ad9f6;outline-offset:3px}
-.controles{display:flex;align-items:end;gap:15px;flex-wrap:wrap;margin-bottom:14px}
-.controles>label{display:grid;gap:6px;font-size:11px;color:#aab7ca}
-.controles select{min-width:135px;font-size:13px}
-fieldset{display:flex;align-items:center;gap:16px;border:0;margin:0;padding:0 0 8px;color:#c5d0e0;font-size:12px}
-legend{font-size:11px;color:#aab7ca;margin-bottom:7px}fieldset label{display:flex;align-items:center;gap:5px}
-input{accent-color:#77dce8}
-.herramientas,.repeticion{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 12px}
-.herramientas button,.repeticion button{font-size:12px;padding:7px 10px}
-.herramientas button[aria-pressed="true"]{border-color:#69d5e6;background:#17384b}
-button:disabled{opacity:.45;cursor:not-allowed}
-.herramientas p{flex-basis:100%;margin:0;color:#9aa8bf;font-size:11px}
-.repeticion{background:#1b2440;border:1px solid #495783;border-radius:10px;padding:10px;font-size:12px}
-.repeticion[hidden]{display:none}
-.repeticion label{display:flex;align-items:center;gap:6px;flex:1;min-width:160px}
-.repeticion input{min-width:100px;flex:1}.repeticion strong{color:#d8b8ff}
-.pantalla{border:1px solid #282f49;border-radius:14px;background:#0a0f1d;overflow:hidden}
-.resumen{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:16px 18px;border-bottom:1px solid #252b40}
-#cierre{font-size:24px;letter-spacing:-.03em}.datos{text-align:right;font-size:11px;line-height:1.45;color:#9aa8bf}.datos p{margin:2px 0}
-#grafico{height:clamp(330px,52vh,700px);width:100%}
-#estado{min-height:42px;margin:0;padding:12px 18px;color:#aec0d1;font-size:12px;border-top:1px solid #252b40}
-#estado.error{color:#ffc19d}
-footer{color:#91a0b7;font-size:11px;line-height:1.6;margin-top:14px}footer p{margin:4px 0}
-@media(max-width:600px){
-  .terminal{padding:14px}.cabecera{align-items:flex-start}.controles{gap:10px}
-  .controles>label{flex:1;min-width:125px}.controles select{width:100%;min-width:0}
-  fieldset{width:100%}.resumen{padding:13px}.datos{text-align:left}
-  #grafico{height:350px}.subtitulo{max-width:220px}
+/* Paleta alineada con el resto de CENTINELA (fuente/010_estilos_base.css): un solo acento teal, sin tonos sueltos. */
+:root{
+  color-scheme:dark;font-family:"Archivo",Inter,system-ui,sans-serif;background:#080d18;color:#edf3f7;
+  --bg:#080d18;--panel:#0b1322;--panel2:#10192a;--borde:#27364a;--borde2:#405268;
+  --txt:#edf3f7;--tenue:#b2c0d0;--tenue2:#8a97ac;--acento:#91d8d2;--acento-f:rgba(145,216,210,.12);
+  --sube:#2bd48a;--baja:#ff5470;--num:"JetBrains Mono",Consolas,monospace
 }
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 85% 0,rgba(60,120,128,.11),transparent 40%),var(--bg)}
+.terminal{max-width:1600px;margin:auto;padding:clamp(16px,2.4vw,28px)}
+
+/* cabecera: breadcrumb + título + estado en directo + acción, en una sola franja compacta */
+.cabecera{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--borde)}
+.cabecera-id{min-width:0}
+.etiqueta{margin:0 0 6px;font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--tenue2);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cabecera .etiqueta span{color:#44586e;margin:0 2px}
+.estado-vivo{display:inline-flex;align-items:center;gap:6px;color:var(--sube);font-weight:700;letter-spacing:.06em}
+.estado-vivo::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 0 3px rgba(43,212,138,.18)}
+h1{font-size:clamp(22px,2.4vw,32px);line-height:1.1;letter-spacing:-.03em;margin:0;font-family:"Sora","Archivo",sans-serif}
+h1 span{color:var(--acento)}
+.subtitulo{color:var(--tenue);font-size:13px;line-height:1.5;margin:6px 0 0;max-width:52ch}
+.cabecera-acciones{display:flex;align-items:center;gap:10px;flex-shrink:0}
+
+button,select{border:1px solid var(--borde2);border-radius:9px;background:var(--panel2);color:var(--txt);font:inherit;padding:9px 12px}
+button{cursor:pointer;transition:border-color .15s,background .15s,color .15s}
+button:hover,select:hover{border-color:var(--acento)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+#actualizar{background:var(--acento);border-color:var(--acento);color:#0a2420;font-weight:700}
+#actualizar:hover{background:#a6e4df}
+button:disabled{opacity:.45;cursor:not-allowed}
+
+/* cuerpo: gráfico protagonista a la izquierda, panel de control fijo a la derecha (como una terminal real) */
+.cuerpo{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px;align-items:start}
+.panel-lateral{display:flex;flex-direction:column;gap:12px;order:2}
+.estacion{border:1px solid var(--borde);border-radius:14px;background:var(--panel);padding:16px}
+.estacion h2{margin:0 0 14px;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--tenue2);text-transform:uppercase}
+.controles{display:flex;flex-direction:column;gap:14px}
+.controles>label{display:grid;gap:7px;font-size:12px;color:var(--tenue)}
+.controles select{width:100%;font-size:13px}
+fieldset{display:flex;flex-direction:column;gap:9px;border:0;margin:0;padding:12px 0 0;color:var(--tenue);font-size:12px;border-top:1px solid var(--borde)}
+legend{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--tenue2);margin-bottom:2px;padding:0}
+fieldset label{display:flex;align-items:center;gap:7px}
+input{accent-color:var(--acento)}
+.herramientas{display:flex;flex-direction:column;gap:8px}
+.herramientas button{font-size:12px;padding:9px 11px;text-align:left}
+.herramientas button[aria-pressed="true"]{border-color:var(--acento);background:var(--acento-f);color:var(--acento)}
+.herramientas p{margin:2px 0 0;color:var(--tenue2);font-size:11px;line-height:1.5}
+.repeticion{order:3;background:var(--panel2);border:1px solid var(--borde2);border-radius:12px;padding:12px;font-size:12px;
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.repeticion[hidden]{display:none}
+.repeticion strong{color:var(--acento);flex-basis:100%;font-size:11px;letter-spacing:.08em}
+.repeticion label{display:flex;align-items:center;gap:6px;flex:1;min-width:140px}
+.repeticion input{min-width:90px;flex:1}
+.repeticion button{font-size:12px;padding:8px 10px}
+
+/* pantalla de precio + gráfico, como el panel principal de una terminal de mercado */
+.pantalla{order:1;min-width:0;border:1px solid var(--borde);border-radius:14px;background:#070b15;overflow:hidden;
+  background-image:linear-gradient(var(--panel) 1px,transparent 1px),linear-gradient(90deg,var(--panel) 1px,transparent 1px);
+  background-size:100% 100%,100% 100%}
+.resumen{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;padding:16px 20px;
+  border-bottom:1px solid var(--borde);background:rgba(11,19,34,.7)}
+#cierre{font-family:var(--num);font-size:clamp(24px,2.6vw,32px);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.datos{text-align:right;font-size:12px;line-height:1.55;color:var(--tenue2)}.datos p{margin:2px 0}
+#grafico{height:clamp(360px,58vh,720px);width:100%}
+#estado{min-height:40px;margin:0;padding:11px 20px;color:var(--tenue);font-size:12px;border-top:1px solid var(--borde);
+  background:rgba(11,19,34,.7)}
+#estado.error{color:#ffc1ab}
+
+footer{color:var(--tenue2);font-size:12px;line-height:1.6;margin-top:16px}footer p{margin:4px 0}
+
+@media(max-width:1020px){
+  .cuerpo{grid-template-columns:1fr}
+  .panel-lateral{order:2;flex-direction:row;flex-wrap:wrap}
+  .panel-lateral .estacion{flex:1;min-width:260px}
+  .pantalla{order:1}
+}
+@media(max-width:600px){
+  .terminal{padding:14px}
+  .panel-lateral{flex-direction:column}
+  .resumen{padding:14px}.datos{text-align:left}
+  #grafico{height:340px}.subtitulo{max-width:none}
+}
+@media(prefers-reduced-motion:reduce){button{transition:none}}

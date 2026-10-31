@@ -12,15 +12,30 @@
 <body>
   <main class="terminal">
     <header class="cabecera">
-      <div>
-        <p class="etiqueta">CENTINELA / OBSERVACIÓN</p>
-        <h1>Radar <span>Nasdaq y cripto</span></h1>
-        <p class="subtitulo">Solo mercado · sin conexión a cuentas ni órdenes</p>
+      <div class="cabecera-id">
+        <p class="etiqueta">CENTINELA <span aria-hidden="true">/</span> TERMINAL DE MERCADO <span aria-hidden="true">·</span> <span class="estado-vivo">EN DIRECTO</span></p>
+        <h1>Explora el <span>mercado</span></h1>
+        <p class="subtitulo">Nasdaq y cripto en un mismo lugar. Datos de mercado en solo lectura.</p>
       </div>
-      <button id="actualizar" type="button">Actualizar</button>
+      <div class="cabecera-acciones"><button id="actualizar" type="button">Actualizar</button></div>
     </header>
 
-    <section class="controles" aria-label="Controles del gráfico">
+    <div class="cuerpo">
+    <section class="pantalla" aria-label="Gráfico de velas">
+      <div class="resumen">
+        <div><p id="titulo-cierre" class="etiqueta">ÚLTIMO CIERRE DE VELA</p><strong id="cierre">—</strong></div>
+        <div class="datos">
+          <p id="detalle">Esperando datos de mercado.</p>
+          <p>La vela puede seguir abierta. No es una cotización ejecutable.</p>
+        </div>
+      </div>
+      <div id="grafico" aria-label="Gráfico interactivo de velas"></div>
+      <p id="estado" role="status" aria-live="polite">Cargando el gráfico…</p>
+    </section>
+
+    <div class="panel-lateral">
+    <section class="controles estacion" aria-label="Controles del gráfico">
+      <h2>Activo e intervalo</h2>
       <label>Activo
         <select id="simbolo">
           <optgroup label="Nasdaq y ETF · Yahoo Finance">
@@ -61,13 +76,15 @@
       </fieldset>
     </section>
 
-    <section class="herramientas" aria-label="Herramientas del gráfico">
+    <section class="herramientas estacion" aria-label="Herramientas del gráfico">
+      <h2>Herramientas</h2>
       <button id="rep-entrar" type="button" disabled>Repetir histórico</button>
       <button id="dib-horizontal" type="button" aria-pressed="false" disabled>Línea horizontal</button>
       <button id="dib-tendencia" type="button" aria-pressed="false" disabled>Línea de tendencia</button>
       <button id="dib-borrar" type="button" disabled>Borrar dibujos</button>
       <p id="herramienta-estado" role="status">Los dibujos no son órdenes; se borran al cambiar activo o intervalo.</p>
     </section>
+
     <section id="repeticion" class="repeticion" aria-label="Repetición histórica" hidden>
       <strong>REPETICIÓN HISTÓRICA</strong>
       <button id="rep-atras" type="button" aria-label="Vela anterior">◀</button>
@@ -77,18 +94,8 @@
       <span id="rep-contador" aria-live="polite"></span>
       <button id="rep-salir" type="button">Salir de repetición</button>
     </section>
-
-    <section class="pantalla" aria-label="Gráfico de velas">
-      <div class="resumen">
-        <div><p id="titulo-cierre" class="etiqueta">ÚLTIMO CIERRE DE VELA</p><strong id="cierre">—</strong></div>
-        <div class="datos">
-          <p id="detalle">Esperando datos de mercado.</p>
-          <p>La vela puede seguir abierta. No es una cotización ejecutable.</p>
-        </div>
-      </div>
-      <div id="grafico" aria-label="Gráfico interactivo de velas"></div>
-      <p id="estado" role="status" aria-live="polite">Cargando el gráfico…</p>
-    </section>
+    </div>
+    </div>
 
     <footer>
       <p>Nasdaq y acciones: Yahoo Finance. Cripto: Binance Spot, pares frente a USDT; USDT no equivale necesariamente
