@@ -735,6 +735,27 @@ th{background:#1b293b;color:#d0dbe5}
 @media(max-width:540px){.ruta-tarjetas{grid-template-columns:1fr}.ruta-tarjetas a{padding:20px}.diario-campos{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.ruta-tarjetas a,.escena .capa{transition:none}}
 /* Panel de observación de la portada; sus cifras proceden de las fuentes indicadas. */
+.escena canvas#tierra3d{inset:auto;left:0;top:0;width:0;height:0;pointer-events:none}
+.escena-fija::before{content:"";position:absolute;z-index:1;pointer-events:none;left:-25%;bottom:-115px;width:105%;height:190px;border-radius:50%;
+  border-top:2px solid rgba(111,213,255,.62);background:radial-gradient(ellipse at 50% 0,rgba(16,87,136,.55),rgba(4,18,38,.96) 55%,transparent 75%);
+  box-shadow:0 -4px 18px rgba(27,156,234,.3),0 -1px 5px rgba(186,239,255,.6)}
+.mercados-flotantes{position:absolute;inset:0;z-index:4;pointer-events:none}
+.mercados-flotantes[hidden],.mercado-flotante[hidden]{display:none}
+.mercado-flotante{position:absolute;top:0;left:0;display:grid;gap:4px;min-width:132px;max-width:160px;min-height:54px;padding:10px 12px;
+  text-align:left;color:#eaf7ff;background:linear-gradient(135deg,rgba(4,19,33,.93),rgba(3,14,25,.89));border:1px solid rgba(88,174,205,.27);
+  border-radius:9px;box-shadow:0 12px 28px rgba(0,0,0,.4),inset 0 1px rgba(255,255,255,.05);backdrop-filter:blur(8px);pointer-events:auto;cursor:pointer}
+.mercado-flotante::after{content:"";position:absolute;right:-5px;top:13px;width:8px;height:8px;border-radius:50%;background:#85fff3;box-shadow:0 0 8px #48f4e3,0 0 20px #38d6ef}
+.mercado-flotante strong{font:700 12px var(--f-ui)}
+.mercado-flotante small{color:#c1d0dd;font:600 10px var(--f-num);line-height:1.35}
+.mercado-flotante small.sube{color:var(--sube)}.mercado-flotante small.baja{color:var(--baja)}
+.mercado-flotante:hover,.mercado-flotante:focus-visible,.mercado-flotante.seleccionado{border-color:var(--cian);box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 22px rgba(59,223,227,.24)}
+.cripto-flotante::after{background:#ffcf74;box-shadow:0 0 8px #fbbf24,0 0 20px #eaa63f}
+.atajos-portada{display:none}
+@media(min-width:1100px) and (max-width:1600px){
+  body.en-inicio .atajos-portada{display:flex;align-items:center;gap:22px;margin-left:12px}
+  .atajos-portada a{color:#c8d6e0;text-decoration:none;font:600 13px var(--f-ui)}
+  .atajos-portada a:hover{color:var(--cian)}
+}
 .escena .consola.radar-portada{
   left:max(48%,calc((100vw - 1320px) / 2 + 610px));right:max(24px,calc((100vw - 1320px) / 2 + 16px));
   bottom:28px;min-height:0;padding:16px 18px;font:inherit;color:var(--txt);
@@ -773,6 +794,7 @@ th{background:#1b293b;color:#d0dbe5}
 .escena .capa.off,.escena .consola.off{visibility:hidden}
 .rp-ir-movil,.rp-volver-movil{display:none}
 @media(max-width:820px){
+  .escena-fija::before{width:125%;left:-55%;bottom:-150px}
   .escena .consola.radar-portada{display:none}
   .radar-portada-movil{display:block;margin:20px auto 0;padding:16px;border:1px solid rgba(115,216,225,.38);border-radius:16px;background:linear-gradient(145deg,rgba(8,24,39,.97),rgba(4,13,25,.98));box-shadow:0 18px 50px rgba(0,0,0,.3)}
   .rp-ir-movil,.rp-volver-movil{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:4px 0;border:0;background:none;color:var(--cian);font:700 13px var(--f-ui);cursor:pointer}
@@ -798,6 +820,7 @@ th{background:#1b293b;color:#d0dbe5}
     <circle cx="12" cy="12" r="5.2" stroke="#22d3ee" stroke-width="1.6"/><ellipse cx="12" cy="12" rx="10" ry="3.6" transform="rotate(-24 12 12)" stroke="#a78bfa" stroke-width="1.4"/><circle cx="12" cy="12" r="1.7" fill="#22d3ee"/><circle cx="20.2" cy="8.4" r="1.3" fill="#e879f9"/></svg></span>
     <span><b>CENTINELA</b><small>INTELLIGENCE SYSTEMS</small></span></a>
   <button class="buscar" id="buscar" aria-label="Buscar (Ctrl+K)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Buscar</span><kbd>Ctrl K</kbd></button>
+  <nav class="atajos-portada" aria-label="Accesos principales"><a href="#terminal">Radar</a><a href="#practica">Simulador</a><a href="#aprende">Aprender</a></nav>
   <nav class="menu" aria-label="Secciones"></nav>
   <div class="top-der">
     <button class="nivel" id="nivel" title="Tu progreso en Aprende"></button>
@@ -810,7 +833,8 @@ th{background:#1b293b;color:#d0dbe5}
 <main class="gut"><div class="ancho">
   <!-- INICIO -->
   <section class="vista" id="v-inicio">
-    <div class="escena" id="escena"><div class="escena-fija" id="heroX"><canvas id="cielo" aria-hidden="true"></canvas><canvas id="mundo" aria-hidden="true"></canvas>
+    <div class="escena" id="escena"><div class="escena-fija" id="heroX"><canvas id="cielo" aria-hidden="true"></canvas><canvas id="tierra3d" aria-hidden="true"></canvas><canvas id="mundo" aria-hidden="true"></canvas>
+      <div class="mercados-flotantes" id="mercados-flotantes" aria-label="Mercados visibles en el planeta"></div>
       <div class="capa izq" id="c1"><p class="ceja">Centinela · Tu espacio para aprender</p>
         <h1>Entiende el mercado. <span class="grad">Aprende a decidir.</span></h1>
         <p class="sub">Explora Nasdaq y cripto, practica con datos históricos y aprende a tu ritmo. Sin arriesgar dinero real.</p>
@@ -874,6 +898,7 @@ th{background:#1b293b;color:#d0dbe5}
     <div><h4>Legal</h4><a href="#transparencia">Riesgos y limitaciones</a><a href="#transparencia">Qué es papel</a></div>
   </div>
   <div style="display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between"><span>© Centinela · Intelligence Systems. Papel: sin dinero real.</span><span>No es asesoramiento financiero ni una recomendación. Los resultados pasados no garantizan resultados futuros.</span></div>
+  <p>Mapas de la Tierra: <a href="https://svs.gsfc.nasa.gov/2915/" target="_blank" rel="noopener noreferrer">NASA/GSFC Scientific Visualization Studio</a> y <a href="https://science.nasa.gov/earth/earth-observatory/earth-at-night/maps/" target="_blank" rel="noopener noreferrer">NASA Earth Observatory</a>. Su uso no implica respaldo de NASA.</p>
 </div></footer>
 <div class="toasts" id="toasts" aria-live="polite"></div>
 <dialog id="modal" aria-labelledby="m-tit"><div class="m-in" id="m-in"></div></dialog>
@@ -2106,7 +2131,7 @@ const VIVO = {"url": "datos.json", "alternativa": "https://raw.githubusercontent
     {c:'Shanghái',lat:31.23,lon:121.47,ind:['CSI 300'],mk:['CN300'],lab:[-9,-7,'right'],ctx:true},
     {c:'Hong Kong',lat:22.32,lon:114.17,ind:[],mk:[],lab:[-9,10,'right'],ref:true},
     {c:'Tokio',lat:35.68,lon:139.69,ind:[],mk:[],lab:[9,-7,'left'],ref:true}];
-  const MUNDO={p:0,lon0:-38,lat0:22,vel:3,arr:null,movido:false,hover:null,fijo:null,part:[],pulso:0,etqT:0,W:0,H:0,geo:null,tierra:null,sat:null,carta:0};
+  const MUNDO={p:0,lon0:105,lat0:28,vel:.9,arr:null,movido:false,hover:null,fijo:null,part:[],pulso:0,etqT:0,W:0,H:0,geo:null,tierra:null,sat:null,carta:0};
   const rad=d=>d*Math.PI/180,suave=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);};
   function estCiudad(ci,ahora){
     if(!D)return {e:{},ind:[]};
@@ -2189,7 +2214,7 @@ uniform vec2 uRes;uniform float uT;uniform float uP;uniform float uW;uniform flo
 float h21(vec2 p){p=fract(p*vec2(233.34,851.73));p+=dot(p,p+23.45);return fract(p.x*p.y);}
 float vn(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h21(i),h21(i+vec2(1.,0.)),f.x),mix(h21(i+vec2(0.,1.)),h21(i+vec2(1.,1.)),f.x),f.y);}
 float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*vn(p);p=mat2(1.6,1.2,-1.2,1.6)*p+vec2(3.1,1.7);a*=.5;}return v;}
-vec3 pal(float x){x=clamp(x,0.,1.);vec3 c1=vec3(.02,.07,.18),c2=vec3(.08,.18,.32),c3=vec3(.12,.32,.38),c4=vec3(.30,.48,.45);
+vec3 pal(float x){x=clamp(x,0.,1.);vec3 c1=vec3(.01,.04,.14),c2=vec3(.02,.12,.28),c3=vec3(.03,.25,.43),c4=vec3(.08,.46,.64);
   if(x<.35)return mix(c1,c2,x/.35);if(x<.7)return mix(c2,c3,(x-.35)/.35);return mix(c3,c4,(x-.7)/.3);}
 float estr(vec2 p,float u){vec2 g=floor(p),f=fract(p)-.5;float h=h21(g);if(h<u)return 0.;
   vec2 o=vec2(h21(g+1.3),h21(g+7.1))-.5;return smoothstep(.08,0.,length(f-o*.7))*(.55+.45*sin(uT*(1.+h*3.)+h*40.))*(h-u)/(1.-u)*3.;}
@@ -2209,7 +2234,7 @@ void main(){
   vec3 col=vec3(.008,.01,.035);
   col+=pal(n*1.2-.12+.3*w.x)*smoothstep(.26,.92,n)*(.8+.35*a2);
   col+=vec3(.04,.32,.42)*smoothstep(.48,.95,n2)*.5;
-  col+=vec3(.22,.70,1.)*fil*smoothstep(.2,.8,n)*.6;
+  col+=vec3(.12,.58,1.)*fil*smoothstep(.2,.8,n)*.8;
   float fl=.2+a2*.9+uW*3.;
   col+=vec3(.92,.95,1.)*estr(uvr*55.+uM*3.+vec2(t*.12*fl,0.),.982)*.9;
   col+=vec3(.75,.82,1.)*estr(uvr*110.+uM*1.5+vec2(t*.06*fl,0.),.988)*.55;
@@ -2256,8 +2281,14 @@ void main(){
   }
   function escena(){
     const sec=$('escena'),hero=$('heroX'),cv=$('mundo');if(!sec||!cv||!cv.getContext)return;const g=cv.getContext('2d');
-    let CIELO=null,brillantes=[];try{CIELO=cieloGL($('cielo'));}catch(e){CIELO=null;}
+    let CIELO=null,PLANETA=null,brillantes=[];try{CIELO=cieloGL($('cielo'));}catch(e){console.warn('Cielo WebGL:',e.message);}
     if(CIELO)CIELO.cv.addEventListener('webglcontextlost',e=>{e.preventDefault();CIELO=null;$('cielo').style.display='none';});
+    try{PLANETA=tierraWebGL($('tierra3d'),()=>dibuja(performance.now()));}catch(e){$('tierra3d').dataset.estado='alternativa';console.warn('Tierra 3D:',e.message);}
+    $('tierra3d').addEventListener('webglcontextlost',e=>{e.preventDefault();PLANETA=null;$('tierra3d').dataset.estado='alternativa';$('tierra3d').style.display='none';console.warn('Tierra 3D: contexto perdido; se muestra la alternativa.');});
+    $('tierra3d').addEventListener('webglcontextrestored',()=>{
+      $('tierra3d').style.display='';
+      try{PLANETA=tierraWebGL($('tierra3d'),()=>dibuja(performance.now()));}catch(e){$('tierra3d').dataset.estado='alternativa';console.warn('Tierra 3D:',e.message);}
+    });
     const quieto=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
     if(quieto)sec.classList.add('quieta');
     let corre=false,raf=0,visible=true,ult=performance.now(),est=[],arriba=64;
@@ -2276,9 +2307,9 @@ void main(){
       if(r.width<820&&!MUNDO.movil){MUNDO.movil=true;MUNDO.lat0=28;}}
     function geom(){
       const W=MUNDO.W,H=MUNDO.H,c1=$('c1'),cons=$('consola'),consTop=cons&&cons.offsetParent?cons.offsetTop:H;
-      if(W<820){const tb=c1.offsetTop+c1.offsetHeight,R=Math.max(110,Math.min(W*.6,(H-tb-64)/1.08)),top=H-1.08*R;
+      if(W<820){const tb=c1.offsetTop+c1.offsetHeight,R=Math.max(32,Math.min(W*.48,(H-tb-28)/2)),top=H-2*R-16;
         return {cx:W/2,cy:top+R,R,nx:Math.min(W-34,W/2+R*.72),ny:Math.max(tb+26,top-6),nr:13,movil:true};}
-      const x0=Math.max(c1.offsetLeft+c1.offsetWidth+36,W*.40),top=26,bot=consTop-24,R=Math.max(120,Math.min((W-x0)*.36,(bot-top)*.40));
+      const x0=Math.max(c1.offsetLeft+c1.offsetWidth+36,W*.40),top=26,bot=consTop-24,R=Math.max(120,Math.min((W-x0)*.39,(bot-top)*.48));
       const cx=x0+(W-x0)*.5,cy=top+(bot-top)*.53,nr=Math.max(14,R*.12);
       return {cx,cy,R,nx:cx+R*.98,ny:Math.max(top+nr*1.9,cy-R),nr,movil:false};
     }
@@ -2291,6 +2322,52 @@ void main(){
     }
     function proy(la,lo,G){const f=rad(la),l=rad(lo)-rad(MUNDO.lon0),f0=rad(MUNDO.lat0);
       return [G.cx+G.R*Math.cos(f)*Math.sin(l),G.cy-G.R*(Math.cos(f0)*Math.sin(f)-Math.sin(f0)*Math.cos(f)*Math.cos(l)),Math.sin(f0)*Math.sin(f)+Math.cos(f0)*Math.cos(f)*Math.cos(l)];}
+    const capaFlotante=$('mercados-flotantes');
+    const flotantes=['Shanghái','Tokio','Hong Kong','Nueva York'].map(nombre=>{
+      const ci=CIUDADES.find(x=>x.c===nombre),el=document.createElement('button');el.type='button';el.className='mercado-flotante';
+      el.dataset.ciudad=nombre;el.innerHTML=`<strong>${esc(nombre)}</strong><small>Sin cotización</small>`;
+      el.addEventListener('focus',()=>{MUNDO.hover=ci;});
+      el.addEventListener('blur',()=>{if(MUNDO.hover===ci)MUNDO.hover=null;});
+      el.addEventListener('click',()=>seleccionRadarPortada(ci,true));capaFlotante.appendChild(el);return {ci,el};
+    });
+    const criptoFlotante=document.createElement('button');criptoFlotante.type='button';criptoFlotante.className='mercado-flotante cripto-flotante';
+    criptoFlotante.innerHTML='<strong>Cripto · BTC</strong><small>Consultar precio</small>';
+    criptoFlotante.addEventListener('click',()=>seleccionRadarPortada('cripto',true));capaFlotante.appendChild(criptoFlotante);
+    function pintaFlotantes(G,sat){
+      capaFlotante.hidden=G.movil||MUNDO.p>.1;
+      if(capaFlotante.hidden)return;
+      const cons=$('consola'),limite=cons.offsetParent?cons.offsetTop-8:MUNDO.H-8,ocupadas=[];
+      const coloca=(el,x,y,dx,dy)=>{
+        const ancho=el.offsetWidth||142,alto=el.offsetHeight||55,c1=$('c1');
+        const izq=Math.min(MUNDO.W-ancho-8,Math.max(8,c1.offsetLeft+c1.offsetWidth+16)),der=MUNDO.W-ancho-8;
+        const maxY=limite-alto;if(maxY<8){el.hidden=true;return;}
+        for(const [ox,oy] of [[0,0],[0,-alto-8],[0,alto+8],[-ancho-8,0],[ancho+8,0],[-ancho-8,-alto-8],[ancho+8,-alto-8]]){
+          const px=Math.max(izq,Math.min(der,x+dx+ox)),py=Math.max(8,Math.min(maxY,y+dy+oy));
+          if(ocupadas.some(r=>px<r.x+r.w+8&&px+ancho+8>r.x&&py<r.y+r.h+8&&py+alto+8>r.y))continue;
+          ocupadas.push({x:px,y:py,w:ancho,h:alto});el.style.transform=`translate(${Math.round(px)}px,${Math.round(py)}px)`;return;
+        }
+        el.hidden=true;
+      };
+      for(const {ci,el} of flotantes){
+        el.hidden=!ci._v||ci._dep<.18;if(el.hidden)continue;
+        const dato=ci._s.ind[0],txt=dato&&Number.isFinite(dato.cambio_pct)?`${fs(dato.cambio_pct)} % · ${dato.nombre}`:'Cotización no disponible';
+        const small=el.querySelector('small');if(small.textContent!==txt)small.textContent=txt;
+        small.className=dato?cl(dato.cambio_pct):'';
+        el.classList.toggle('seleccionado',MUNDO.fijo===ci);
+        el.setAttribute('aria-pressed',String(MUNDO.fijo===ci));
+        const dx=ci.c==='Tokio'?18:-150,dy=ci.c==='Hong Kong'?8:-58;
+        coloca(el,ci._x,ci._y,dx,dy);
+      }
+      criptoFlotante.hidden=sat.tapado;
+      if(!criptoFlotante.hidden){
+        const d=RADAR_PORTADA.seleccion==='cripto'?rpDatos():null;
+        const txt=d&&d.precio!=null?`${nf(d.precio)} USDT`:'Consultar precio';
+        const small=criptoFlotante.querySelector('small');if(small.textContent!==txt)small.textContent=txt;
+        criptoFlotante.classList.toggle('seleccionado',MUNDO.fijo==='cripto');
+        criptoFlotante.setAttribute('aria-pressed',String(MUNDO.fijo==='cripto'));
+        coloca(criptoFlotante,sat.x,sat.y,14,-28);
+      }
+    }
     function ctrl(x,y,G){const mx=(x+G.nx)/2,my=(y+G.ny)/2,dx=mx-G.cx,dy=my-G.cy,d=Math.hypot(dx,dy)||1;return [mx+dx/d*G.R*.32,my+dy/d*G.R*.32];}
     const bez=(a,c,b,t)=>{const u=1-t;return [u*u*a[0]+2*u*t*c[0]+t*t*b[0],u*u*a[1]+2*u*t*c[1]+t*t*b[1]];};
     function orbe(x,y,r,t){
@@ -2318,18 +2395,19 @@ void main(){
       const W=MUNDO.W,H=MUNDO.H,G0=geom(),e=k*(2-k),R=G0.R*(1-.78*e),cx=G0.cx+(W/2-G0.cx)*e,cy=G0.cy+(H*.46-G0.cy)*e;
       const G={cx,cy,R,nx:G0.nx+(W/2-G0.nx)*e,ny:G0.ny+(H*.46-G0.ny)*e,nr:G0.nr*(1-.6*e),movil:G0.movil};MUNDO.geo=G;
       const act=MUNDO.fijo||MUNDO.hover,vivo=!quieto&&k<.02;
+      const texturizado=PLANETA&&PLANETA.listo;if(texturizado)PLANETA.pinta(G,aG,MUNDO.lon0,MUNDO.lat0);
       g.globalAlpha=aG;
       const sat=satelite(G,quieto?0:t);orbita(G,false);
       /* atmósfera, océano y tierras con el día y la noche de ahora */
       const at=g.createRadialGradient(cx,G.cy,R*.92,cx,G.cy,R*1.3);at.addColorStop(0,'rgba(60,150,255,.34)');at.addColorStop(.4,'rgba(40,110,255,.1)');at.addColorStop(1,'rgba(20,60,200,0)');
       g.fillStyle=at;g.beginPath();g.arc(cx,G.cy,R*1.3,0,6.283);g.fill();
-      const oc=g.createRadialGradient(cx-R*.35,G.cy-R*.4,R*.1,cx,G.cy,R);oc.addColorStop(0,'#0e2346');oc.addColorStop(.7,'#071226');oc.addColorStop(1,'#040a17');
-      g.fillStyle=oc;g.beginPath();g.arc(cx,G.cy,R,0,6.283);g.fill();
+      if(!texturizado){const oc=g.createRadialGradient(cx-R*.35,G.cy-R*.4,R*.1,cx,G.cy,R);oc.addColorStop(0,'#0e2346');oc.addColorStop(.7,'#071226');oc.addColorStop(1,'#040a17');
+        g.fillStyle=oc;g.beginPath();g.arc(cx,G.cy,R,0,6.283);g.fill();}
       if(!sat.delante&&!sat.tapado)pintaSat(sat,act==='cripto');
       const T=MUNDO.tierra,l0=rad(MUNDO.lon0),f0=rad(MUNDO.lat0),c0=Math.cos(l0),s0=Math.sin(l0),cf0=Math.cos(f0),sf0=Math.sin(f0);
-      const Q=MUNDO.ret;if(Q){g.fillStyle='rgba(120,170,255,.13)';for(let i=0;i<Q.n;i++){const cd=Q.cl[i]*c0+Q.sl[i]*s0,dep=sf0*Q.sf[i]+cf0*Q.cf[i]*cd;if(dep<=.05)continue;
+      const Q=MUNDO.ret;if(Q&&!texturizado){g.fillStyle='rgba(120,170,255,.13)';for(let i=0;i<Q.n;i++){const cd=Q.cl[i]*c0+Q.sl[i]*s0,dep=sf0*Q.sf[i]+cf0*Q.cf[i]*cd;if(dep<=.05)continue;
         const sd=Q.sl[i]*c0-Q.cl[i]*s0;g.fillRect(cx+R*Q.cf[i]*sd-.5,G.cy-R*(cf0*Q.sf[i]-sf0*Q.cf[i]*cd)-.5,1,1);}}
-      if(T){const [sx,sy,sz]=solAhora();
+      if(T&&!texturizado){const [sx,sy,sz]=solAhora();
         for(const L of [...B.dia,...B.noche,...B.luz])L.length=0;
         for(let i=0;i<T.n;i++){const cd=T.cl[i]*c0+T.sl[i]*s0,sd=T.sl[i]*c0-T.cl[i]*s0,dep=sf0*T.sf[i]+cf0*T.cf[i]*cd;if(dep<=0)continue;
           const x=cx+R*T.cf[i]*sd,y=G.cy-R*(cf0*T.sf[i]-sf0*T.cf[i]*cd);if(y<-4||y>H+4||x<-4||x>W+4)continue;
@@ -2344,6 +2422,7 @@ void main(){
       /* ciudades: posición real; arcos hasta el núcleo */
       const ahora=Date.now(),vis=[];
       for(const ci of CIUDADES){const [x,y,dep]=proy(ci.lat,ci.lon,G);ci._x=x;ci._y=y;ci._v=dep>.02&&y<H-6;ci._dep=dep;if(ci._v){ci._s=estCiudad(ci,ahora);vis.push(ci);}}
+      pintaFlotantes(G,sat);
       for(const ci of vis){if(ci.ref)continue;ci._c=ctrl(ci._x,ci._y,G);const on=act&&(act===ci||act==='nucleo'),fade=Math.min(1,ci._dep*4);
         g.strokeStyle=`rgba(34,211,238,${((on?.8:.36)*fade).toFixed(3)})`;g.lineWidth=on?1.8:1.15;g.beginPath();g.moveTo(ci._x,ci._y);g.quadraticCurveTo(ci._c[0],ci._c[1],G.nx,G.ny);g.stroke();
         if(vivo){ci._acc=(ci._acc==null?Math.random():ci._acc)+dt*(ci._s.e.abierta?1.6:.12);while(ci._acc>=1){ci._acc-=1;MUNDO.part.push({o:ci,t:0,v:.42+Math.random()*.3});}}}
@@ -2370,6 +2449,7 @@ void main(){
       for(const ci of vis){const st=ci._s,on=act===ci,c=ci.ref?'#8492ab':st.e.abierta?'#2bd48a':st.e.pausa?'#fbbf24':'#ff5470',fade=Math.min(1,ci._dep*5);g.globalAlpha=aG*fade;
         if(!quieto&&st.e.abierta){const pr=(t/1500+ci.lat/7)%1;g.strokeStyle=`rgba(43,212,138,${(.6*(1-pr)).toFixed(3)})`;g.lineWidth=1.2;g.beginPath();g.arc(ci._x,ci._y,5+pr*15,0,6.283);g.stroke();}
         g.fillStyle=c;g.shadowColor=c;g.shadowBlur=on?20:9;g.beginPath();g.arc(ci._x,ci._y,on?5.6:ci.ref?3:4,0,6.283);g.fill();g.shadowBlur=0;
+        if(!G.movil&&flotantes.some(f=>f.ci===ci&&!f.el.hidden))continue;
         const [dx,dy,al]=ci.lab,lx=ci._x+dx,ly=ci._y+dy;g.textAlign=al;g.font=`${ci.ref?500:600} ${MUNDO.W<820?11:12.5}px Archivo, system-ui, sans-serif`;g.fillStyle=ci.ref?'#8492ab':'#e6edf7';
         const x=st.ind[0],wCiudad=g.measureText(ci.c+' ').width,conCambio=x&&x.cambio_pct!=null&&(!G.movil||on);
         const ancho=wCiudad+(conCambio&&al==='left'?70:0),caja={l:al==='left'?lx:lx-ancho,r:al==='left'?lx+ancho:lx,t:ly-14,b:ly+(conCambio&&al==='right'?15:3)};
@@ -2380,7 +2460,7 @@ void main(){
           g.fillText(`${fs(x.cambio_pct)} %`,al==='left'?lx+wCiudad:lx,al==='left'?ly:ly+13);}}
       g.globalAlpha=aG;
       orbita(G,true);if(sat.delante)pintaSat(sat,act==='cripto');
-      orbe(G.nx,G.ny,G.nr,t);
+      orbe(G.nx,G.ny,G.nr*.55,t);
       if(!G.movil){g.textAlign='center';g.font='700 12px JetBrains Mono, Consolas, monospace';g.fillStyle='#bff6ff';g.fillText('CENTINELA',G.nx,G.ny+G.nr*2.3+14);}
       for(const [s,x,y,a,col] of textos){if(a<=0)continue;g.globalAlpha=aG*a;g.font='600 11.5px JetBrains Mono, Consolas, monospace';const w=g.measureText(s).width;
         g.fillStyle='rgba(3,6,12,.78)';g.fillRect(x+8,y-19,w+12,18);g.fillStyle=`rgb(${col})`;g.textAlign='left';g.fillText(s,x+14,y-6);}
@@ -2424,7 +2504,7 @@ void main(){
         let x=o[0]+(W/2-o[0])*kw,y=o[1]+(H*.46-o[1])*kw;if(gg){x+=(gg.gx-x)*k3;y+=(gg.gy-y)*k3;}
         const wn=Math.max(0,Math.min(1,(p-.09)/.05))*(1-Math.max(0,Math.min(1,(p-.26)/.06)));
         CIELO.pinta(t/1000,p,wn,[x/W,1-y/H],W<820?1:0,[MUNDO.mx==null?0:MUNDO.mx/W-.5,MUNDO.my==null?0:.5-MUNDO.my/H]);}
-      else{g.fillStyle='#02040a';g.fillRect(0,0,W,H);}
+      else g.clearRect(0,0,W,H);
       for(const s of est){const a=.18+.55*Math.abs(Math.sin(t*.0005*s.v+s.f));g.fillStyle=`rgba(210,225,255,${a.toFixed(3)})`;g.fillRect(s.x,s.y,s.r,s.r);}
       if(brillantes.length){g.globalCompositeOperation='lighter';
         for(const b of brillantes){const tw=(quieto?.85:.6+.4*Math.sin(t*.0011*b.v+b.f));if(tw<=.01)continue;
@@ -2443,7 +2523,7 @@ void main(){
             g.fillStyle=`rgba(255,255,255,${(.9*a).toFixed(3)})`;g.beginPath();g.arc(f.x,f.y,1.5,0,6.283);g.fill();return true;});
           g.globalCompositeOperation='source-over';g.lineCap='butt';}}
       cosmos(t,dt,p);
-      if(aG>0)globo(t,dt,k,aG);else MUNDO.geo=null;
+      if(aG>0)globo(t,dt,k,aG);else{MUNDO.geo=null;capaFlotante.hidden=true;if(PLANETA)PLANETA.limpia();}
       if(MUNDO.carta&&t-MUNDO.cartaT>1000)muestra(MUNDO.carta,false);
     }
     function bucle(t){dibuja(t);if(corre)raf=requestAnimationFrame(bucle);}
@@ -2706,6 +2786,75 @@ void main(){
   RENDER.pulso=vistaPulso;
   RENDER.cripto=vistaCripto;
   RENDER.resultados=vistaResultadosMision;
+  /* Esfera proyectada en WebGL con mapas históricos de NASA; la iluminación es artística. */
+  function tierraWebGL(cv,actualizar){
+    cv.dataset.estado='cargando';
+    const gl=cv.getContext('webgl',{alpha:true,antialias:true,depth:false,stencil:false,powerPreference:'low-power'});
+    if(!gl){cv.dataset.estado='alternativa';console.warn('Tierra 3D: WebGL no está disponible; se muestra la alternativa.');return null;}
+    const compila=(tipo,fuente)=>{const s=gl.createShader(tipo);gl.shaderSource(s,fuente);gl.compileShader(s);
+      if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s)||'No se pudo compilar el shader.');return s;};
+    const vert=`attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}`;
+    const frag=`precision highp float;
+      uniform vec2 resolucion;uniform float longitud;uniform float latitud;uniform float opacidad;
+      uniform sampler2D dia;uniform sampler2D noche;
+      const float PI=3.14159265359;
+      void main(){
+        vec2 p=gl_FragCoord.xy/resolucion*2.-1.;float d=dot(p,p);if(d>=1.)discard;
+        float z=sqrt(max(0.,1.-d)),sl=sin(latitud),cl=cos(latitud);
+        float lat=asin(clamp(p.y*cl+z*sl,-1.,1.));
+        float lon=longitud+atan(p.x,z*cl-p.y*sl);
+        vec2 uv=vec2(fract(lon/(2.*PI)+.5),lat/PI+.5);
+        vec3 tierra=texture2D(dia,uv).rgb,luces=texture2D(noche,uv).rgb;
+        vec3 normal=vec3(p,z);
+        float luz=max(0.,dot(normal,normalize(vec3(-.48,.78,.62))));
+        float relieve=dot(tierra,vec3(.299,.587,.114));
+        vec3 superficie=tierra*vec3(.12,.25,.42)*(.45+.8*luz)+vec3(.004,.012,.03);
+        superficie+=vec3(.025,.065,.09)*relieve*luz;
+        superficie+=luces*vec3(1.65,1.58,1.45);
+        float borde=pow(1.-z,2.4);
+        superficie+=vec3(.06,.46,.78)*borde*(.45+.7*luz);
+        float brillo=pow(max(0.,dot(normal,normalize(vec3(-.35,.93,.35)))),18.);
+        superficie+=vec3(.05,.2,.3)*brillo*.5;
+        float alfa=(1.-smoothstep(.992,1.,d))*opacidad;
+        gl_FragColor=vec4(superficie*alfa,alfa);
+      }`;
+    const pr=gl.createProgram();gl.attachShader(pr,compila(gl.VERTEX_SHADER,vert));gl.attachShader(pr,compila(gl.FRAGMENT_SHADER,frag));
+    gl.linkProgram(pr);if(!gl.getProgramParameter(pr,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(pr)||'No se pudo enlazar el planeta.');
+    gl.useProgram(pr);gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+    const a=gl.getAttribLocation(pr,'a');gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,2,gl.FLOAT,false,0,0);
+    const u={};for(const n of ['resolucion','longitud','latitud','opacidad','dia','noche'])u[n]=gl.getUniformLocation(pr,n);
+    const estado={listo:false,fallo:false};
+    let cargadas=0;
+    for(const [i,nombre] of ['tierra-dia.jpg','tierra-noche.jpg'].entries()){
+      const imagen=new Image();
+      imagen.onload=()=>{
+        try{
+          gl.activeTexture(gl.TEXTURE0+i);const textura=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,textura);
+          gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);
+          gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+          gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.REPEAT);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+          gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,imagen);
+          const error=gl.getError();if(error!==gl.NO_ERROR)throw new Error(`WebGL ${error}`);
+        }catch(e){estado.fallo=true;cv.dataset.estado='alternativa';console.warn(`Tierra 3D: no se pudo preparar ${nombre}: ${e.message}; se muestra la alternativa.`);actualizar();return;}
+        if(++cargadas===2&&!estado.fallo){estado.listo=true;cv.dataset.estado='texturizada';actualizar();}
+      };
+      imagen.onerror=()=>{estado.fallo=true;cv.dataset.estado='alternativa';console.warn(`Tierra 3D: no se pudo cargar ${nombre}; se muestra la alternativa.`);actualizar();};
+      imagen.src='terminal/recursos/'+nombre;
+    }
+    estado.pinta=(G,alfa,lon,lat)=>{
+      if(!estado.listo)return;
+      const lado=Math.max(2,Math.round(G.R*2)),d=Math.min(window.devicePixelRatio||1,1.25),pix=Math.round(lado*d);
+      if(cv.width!==pix||cv.height!==pix){cv.width=pix;cv.height=pix;}
+      cv.style.width=lado+'px';cv.style.height=lado+'px';
+      cv.style.transform=`translate(${(G.cx-G.R).toFixed(1)}px,${(G.cy-G.R).toFixed(1)}px)`;
+      gl.viewport(0,0,pix,pix);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);gl.useProgram(pr);
+      gl.uniform2f(u.resolucion,pix,pix);gl.uniform1f(u.longitud,rad(lon));gl.uniform1f(u.latitud,rad(lat));
+      gl.uniform1f(u.opacidad,alfa);gl.uniform1i(u.dia,0);gl.uniform1i(u.noche,1);gl.drawArrays(gl.TRIANGLES,0,3);
+    };
+    estado.limpia=()=>{if(estado.listo){gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);}};
+    return estado;
+  }
   /* ── MI ESPACIO: lista y ficha de valores, con vistas ordenadas por fuerza, tendencia o volatilidad.
         Datos de mercado, no recomendaciones. La lista vive en este navegador (aún no hay cuentas). ── */
   const LK='centinela.lista';
