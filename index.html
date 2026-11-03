@@ -599,6 +599,11 @@ dialog::backdrop{background:rgba(2,4,9,.72);backdrop-filter:blur(4px)}
 .term-cab>div{min-width:0;max-width:760px}.term-cab .intro{margin-bottom:0}
 .term-marco{display:block;width:100%;height:calc(100vh - 170px);min-height:640px;border:1px solid var(--borde);border-radius:14px;background:#070a12}
 .term-movil{display:none;font-size:13px;color:var(--tenue);margin:0 0 10px}
+.term-panel{margin:18px 0}
+.term-panel-cab{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.term-panel-cab h3{margin:0;font:700 17px var(--f-ui)}
+.term-acciones{display:flex;gap:10px;flex-wrap:wrap}
+.term-panel .tabla{margin-top:14px}
 .btn-term{background:none;border:1px solid var(--borde);color:var(--cian);border-radius:6px;padding:2px 8px;font:600 12px var(--f-ui);cursor:pointer;white-space:nowrap}
 .btn-term:hover{border-color:var(--cian)}
 @media (max-width:760px){.term-movil{display:block}.term-marco{height:78vh;min-height:520px}}
@@ -1666,15 +1671,15 @@ const VIVO = {"url": "datos.json", "alternativa": "https://raw.githubusercontent
     el.dataset.sinDatos='1';
     el.innerHTML=`<div class="cab-v"><p class="ceja">Practica</p><h2 class="tit">Simulador de vuelo</h2>
       <p class="intro">Capital ficticio sobre datos históricos de mercado. El registro de otras estrategias no está disponible.</p></div>
-      <section class="panel" id="practica-paper" data-subnav="Cuenta ficticia"><div class="panel-cab">Práctica con órdenes ficticias<span class="der">solo en este navegador</span></div><div class="panel-cuerpo" id="paper-wrap"></div></section>
+      <section class="panel" id="practica-paper" data-subnav="Cuenta ficticia"><div class="panel-cab">Práctica con órdenes ficticias<span class="der">solo en este navegador</span></div><div id="paper-practica-destino"></div></section>
       <section class="panel" id="practica-vuelo" data-subnav="Simulador"><div class="panel-cab">Simulador de vuelo · QQQ diario<span class="der">capital ficticio</span></div><div class="panel-cuerpo" id="vuelo-wrap"></div></section>`;
-    iniciarVuelo();iniciarPaper();
+    iniciarVuelo();paperMontar('paper-practica-destino');
   }
   function vistaPractica(){
     delete $('v-practica').dataset.sinDatos;
     const R=UI.rec,P=UI.prac,estA=[...new Set(S.atlas.ops.map(o=>o.estrategia))].sort(),nRet=Object.keys(RET).length,okRet=RETOS.filter((x,i)=>RET[i]===x[3]).length;
     $('v-practica').innerHTML=`<div class="cab-v"><p class="ceja">Practica</p><h2 class="tit">Aprende algo, ponlo a prueba</h2><p class="intro">Explora pruebas históricas y simula con un registro en papel de otro sistema. Estos datos no son resultados de PULSO.</p></div>
-      <section class="panel" id="practica-paper" data-subnav="Cuenta ficticia"><div class="panel-cab">Práctica con órdenes ficticias<span class="der">solo en este navegador</span></div><div class="panel-cuerpo" id="paper-wrap"></div></section>
+      <section class="panel" id="practica-paper" data-subnav="Cuenta ficticia"><div class="panel-cab">Práctica con órdenes ficticias<span class="der">solo en este navegador</span></div><div id="paper-practica-destino"></div></section>
       <section class="panel" id="practica-vuelo" data-subnav="Simulador"><div class="panel-cab">Simulador de vuelo · QQQ diario<span class="der">capital ficticio</span></div><div class="panel-cuerpo" id="vuelo-wrap"></div></section>
       <div id="lab-wrap" data-subnav="Laboratorio histórico"></div>
       <section class="panel" id="practica-recorrido" data-subnav="Recorrido"><div class="panel-cab">Recorrido 1 · Cuánto arriesgar por operación<span class="der"><span class="chip aprobada">gratis</span></span></div><div class="panel-cuerpo">
@@ -1713,7 +1718,7 @@ const VIVO = {"url": "datos.json", "alternativa": "https://raw.githubusercontent
     v.querySelectorAll('[data-prac]').forEach(el=>el.onchange=el.oninput=()=>{const k=el.dataset.prac;UI.prac[k]=k==='univ'?el.value:(parseFloat(el.value)||0);$('calc-out').innerHTML=calcTxt();});
     v.querySelectorAll('[data-reto]').forEach(b=>b.onclick=()=>{RET[+b.dataset.reto]=+b.dataset.op;try{localStorage.setItem(RK,JSON.stringify(RET));}catch(e){}vistaPractica();});
     const rr=$('ret-reset');if(rr)rr.onclick=()=>{RET={};try{localStorage.removeItem(RK);}catch(e){}vistaPractica();};
-    pintaLab();iniciarVuelo();iniciarPaper();
+    pintaLab();iniciarVuelo();paperMontar('paper-practica-destino');
   }
   /* ── LABORATORIO DE ESTRATEGIAS: las estrategias reales, con sus nombres y reglas, sobre su prueba histórica (solo
         el periodo de diseño: las reservas siguen selladas) y su papel en directo. Gratis: 3 básicas en 2 índices. ── */
@@ -2314,6 +2319,9 @@ const VIVO = {"url": "datos.json", "alternativa": "https://raw.githubusercontent
     else if(PUBLICO&&k==='terminal')vistaTerminalMision();
     else if(k==='practica')vistaPracticaSinDatos();
     else if(k==='espacio')vistaEspacio();
+    const destinoPaper=k==='espacio'?$('paper-espacio-destino'):k==='practica'?$('paper-practica-destino'):null;
+    if(destinoPaper&&!destinoPaper.querySelector('#paper-wrap'))paperMontar(destinoPaper.id);
+    if(k==='terminal')pintaTerminalPulso();
     if(k==='inicio')pintaWorkspace();
     if(k==='noticias')abrirNoticias();
     actualizaNavSeccion();
@@ -3047,7 +3055,7 @@ void main(){
       }else if(p.version!==1||typeof p.estado_guardado!=='string'||!Number.isFinite(p.equity)||!Array.isArray(p.posiciones)||!Array.isArray(p.ultimos_cierres))throw new Error('formato de PULSO incompatible');
       PULSO=p;PULSO_ERROR='';
     }catch(e){PULSO_ERROR=e.message;console.warn('PULSO: no se pudo actualizar la cuenta:',e.message);}
-    finally{PULSO_CARGANDO=false;if(UI.vista==='pulso'){vistaPulso();actualizaNavSeccion();}else if(UI.vista==='resultados')vistaResultadosMision();}
+    finally{PULSO_CARGANDO=false;if(UI.vista==='pulso'){vistaPulso();actualizaNavSeccion();}else if(UI.vista==='resultados')vistaResultadosMision();else if(UI.vista==='terminal')pintaTerminalPulso();}
   }
   function vistaCripto(){
     const el=$('v-cripto');if(!el)return;
@@ -3065,14 +3073,36 @@ void main(){
       <div class="pulso-portada"><a href="#pulso"><h3>PULSO · NASDAQ</h3><p>${PUBLICO?(pulsoPublicado()?'Copia parcial de cierres recientes y posiciones simuladas; consulta su fecha.':'La cuenta y sus resultados están pendientes de conciliación y no se publican todavía.'):'Estado y cierres recientes del sistema de acciones. Su cuenta sigue pendiente de conciliación.'}</p><span>Ver PULSO →</span></a>
       <a href="#cripto"><h3>Cripto</h3><p>Operaciones de una estrategia de una cuenta anterior compartida; no pertenecen a PULSO.</p><span>Ver cripto →</span></a></div>`;
   }
+  function pintaTerminalPulso(){
+    const el=$('terminal-pulso');if(!el)return;
+    if(!pulsoPublicado()){
+      el.innerHTML='<p class="vuelo-estado">La copia pública de PULSO no está disponible en esta vista. La cuenta completa sigue pendiente de conciliación.</p>';
+      return;
+    }
+    if(!PULSO){
+      el.innerHTML=`<p class="vuelo-estado" role="status">${PULSO_ERROR?'No se pudo cargar la copia pública de PULSO.':'Cargando la copia pública de PULSO…'}</p>`;
+      return;
+    }
+    const p=PULSO,ultimos=p.cierres.slice().sort((a,b)=>b.fecha.localeCompare(a.fecha)).slice(0,5);
+    el.innerHTML=`${PULSO_ERROR?'<p class="aviso-l">No se pudo actualizar: se muestra la última copia recibida.</p>':''}
+      <div class="pulso-datos"><article><small>Cierres contrastados desde el 9-sep-2026</small><strong>${p.cierres.length}</strong></article>
+        <article><small>Posiciones ordinarias abiertas</small><strong>${p.posiciones.length}</strong></article></div>
+      <p class="vuelo-estado">Estado guardado: ${fechaPulso(p.estado_guardado)}. Copia ${p.actualizacion==='manual'?'publicada manualmente y sin actualización automática':'publicada automáticamente tras las comprobaciones'}; los precios pueden estar retrasados.</p>
+      <div class="tabla"><table><thead><tr><th>Últimos cierres</th><th>Resultado neto simulado</th><th>Fecha de cierre</th></tr></thead><tbody>
+        ${ultimos.map(x=>`<tr><td><b>${esc(x.simbolo)}</b></td><td class="${cl(x.pnl)}">${fs(x.pnl)} $</td><td>${fechaPulso(x.fecha)}</td></tr>`).join('')||'<tr><td colspan="3">No hay cierres en esta copia.</td></tr>'}</tbody></table></div>
+      <p class="vuelo-estado">Son registros simulados del mismo bot, no ejecuciones reales ni la cuenta del visitante. La cuenta completa y el histórico anterior siguen pendientes de conciliación.</p>`;
+  }
   function vistaTerminalMision(){
     const el=$('v-terminal');if(!el||el.querySelector('iframe'))return;
     const ruta='terminal/mercado.html'+(PUBLICO?'?publico=1':'');
     el.innerHTML=`<div class="term-cab"><div><p class="ceja">Centinela · Mercado</p><h2 class="tit">Tu radar de mercado.</h2>
       <p class="intro">Explora Nasdaq y cripto con datos de Yahoo Finance y Binance Spot. Las cotizaciones pueden tener retraso y no son precios de ejecución.</p></div>
       <a class="btn sec peq" href="${ruta}" target="_blank" rel="noopener">Abrir en pantalla completa ↗</a></div>
-      <p class="academia-nota">Cripto usa pares spot con USDT. No se conectan operaciones, cuentas ni automatización a este terminal.</p>
-      <iframe class="term-marco" id="term-marco" src="${ruta}" title="Radar Nasdaq y cripto de solo lectura"></iframe>`;
+      <p class="academia-nota">El gráfico es de solo lectura. Cripto usa pares spot con USDT; los precios pueden tener retraso.</p>
+      <div class="term-acciones"><a class="btn vio peq" href="#espacio">Operar con dinero ficticio →</a><a class="btn sec peq" href="#pulso">Ver todos los cierres de PULSO →</a></div>
+      <section class="panel term-panel" id="terminal-resumen" data-subnav="PULSO"><div class="panel-cuerpo"><div class="term-panel-cab"><h3>PULSO · copia parcial en papel</h3><a href="#pulso">Ver posiciones y cierres →</a></div><div id="terminal-pulso"></div></div></section>
+      <section id="terminal-grafico" data-subnav="Gráfico"><iframe class="term-marco" id="term-marco" src="${ruta}" title="Radar Nasdaq y cripto de solo lectura"></iframe></section>`;
+    pintaTerminalPulso();
   }
   RENDER.pulso=vistaPulso;
   RENDER.cripto=vistaCripto;
@@ -3198,10 +3228,12 @@ void main(){
     const raiz=$('v-espacio');if(!raiz)return;
     if(!raiz.querySelector('#esp-mercado')){
       raiz.innerHTML=`<div class="cab-v"><p class="ceja">Centinela · Mi espacio</p><h2 class="tit">Un lugar para avanzar a tu ritmo.</h2>
-        <p class="intro">Practica, registra tus ideas y revisa lo aprendido. El diario vive en este navegador; todavía no hay cuentas ni sincronización entre dispositivos.</p></div>
+        <p class="intro">Practica, registra tus ideas y revisa lo aprendido. El diario y la cuenta ficticia viven en este navegador; todavía no hay inicio de sesión ni sincronización entre dispositivos.</p></div>
+        <section class="panel" id="espacio-paper" data-subnav="Operar en papel"><div class="panel-cab">Tu cuenta ficticia <span class="der">operaciones manuales</span></div><div id="paper-espacio-destino"></div></section>
         <div id="diario-wrap" data-subnav="Diario"></div><div id="esp-mercado" data-subnav="Seguimiento"></div>`;
       iniciarDiario();
     }
+    if(!$('paper-espacio-destino').querySelector('#paper-wrap'))paperMontar('paper-espacio-destino');
     const el=$('esp-mercado');
     const E=await cargaEspacio();
     if(!E||!E.valores||!E.valores.length){el.innerHTML=`<div class="cab-v"><p class="ceja">Mi espacio</p><h2 class="tit">Tu lista de mercado</h2><p class="intro">${PUBLICO?'La conexión de esta lista aún no está disponible en la web pública. Consulta el Terminal para ver el mercado.':'No han llegado los precios. Se reintenta solo en un minuto.'}</p></div>`;return;}
@@ -3765,7 +3797,13 @@ void main(){
   setInterval(()=>{if(UI.vista==='noticias'&&!document.hidden)abrirNoticias();},300000);
   /* Cuenta educativa local; no envía órdenes ni lee cuentas de los sistemas. */
   const PAPER_COSTE=0.1,PAPER_CAPITAL=10000,PAPER_MAX_ORDENES=2000;
-  const PAPER_BINANCE='https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m&limit=1';
+  const PAPER_ACCIONES=[['QQQ','QQQ · ETF'],['AAPL','Apple · AAPL'],['MSFT','Microsoft · MSFT'],
+    ['NVDA','NVIDIA · NVDA'],['AMD','AMD'],['AMZN','Amazon · AMZN'],['GOOGL','Alphabet · GOOGL'],
+    ['META','Meta'],['TSLA','Tesla · TSLA']];
+  const PAPER_CRIPTO=[['BTCUSDT','Bitcoin · BTC/USDT'],['ETHUSDT','Ethereum · ETH/USDT'],
+    ['SOLUSDT','Solana · SOL/USDT'],['XRPUSDT','XRP/USDT'],['ADAUSDT','Cardano · ADA/USDT']];
+  const PAPER_SIMBOLOS=new Set([...PAPER_ACCIONES,...PAPER_CRIPTO].map(([simbolo])=>simbolo));
+  const PAPER_BINANCE='https://api.binance.com/api/v3/klines';
   let PAPER_MODO='historico',PAPER_SIMBOLO='QQQ',PAPER_ESTADO=null,PAPER_SERIAL=null;
   let PAPER_SERIE=null,PAPER_COTIZACION=null,PAPER_SOLICITUD=0;
   const paperClave=(modo,simbolo)=>`centinela.paper.v1.${modo}.${simbolo}`;
@@ -3791,7 +3829,7 @@ void main(){
   }
   function paperValidar(a,modo,simbolo){
     if(!a||a.version!==1||a.modo!==modo||a.simbolo!==simbolo||
-      !['historico','cotizacion'].includes(modo)||!['QQQ','BTCUSDT'].includes(simbolo)||
+      !['historico','cotizacion'].includes(modo)||!PAPER_SIMBOLOS.has(simbolo)||
       (modo==='historico'&&(simbolo!=='QQQ'||!paperFecha(a.fecha)||!/^[a-f0-9]{64}$/.test(a.firma)))||
       (modo==='cotizacion'&&(a.fecha!==null||a.firma!==null||a.serie!==null))||
       !paperNumero(a.efectivo,0,1e15)||!paperNumero(a.unidades,0,1e12)||
@@ -3869,9 +3907,9 @@ void main(){
     }
   }
   function paperCotizacion(d,simbolo,ahora=Date.now()){
-    const fuente=simbolo==='QQQ'?'Yahoo Finance':'Binance Spot';
+    const fuente=PAPER_CRIPTO.some(([s])=>s===simbolo)?'Binance Spot':'Yahoo Finance';
     const respuesta=Date.parse(d&&d.respuesta_utc),v=d&&Array.isArray(d.velas)?d.velas[d.velas.length-1]:null;
-    if(!d||d.version!==1||d.simbolo!==simbolo||d.intervalo!=='1m'||d.fuente!==fuente||
+    if(!PAPER_SIMBOLOS.has(simbolo)||!d||d.version!==1||d.simbolo!==simbolo||d.intervalo!=='1m'||d.fuente!==fuente||
       !Number.isFinite(respuesta)||respuesta>ahora+120000||ahora-respuesta>60000||
       !v||!Number.isSafeInteger(v.time)||v.time*1000>ahora+120000||ahora-v.time*1000>600000||
       !['open','high','low','close'].every(k=>paperNumero(v[k],Number.MIN_VALUE,1e12))||
@@ -3913,8 +3951,9 @@ void main(){
     });
   }
   async function paperObtenerCotizacion(simbolo){
-    if(PUBLICO&&simbolo==='BTCUSDT'){
-      const r=await fetch(PAPER_BINANCE,{cache:'no-store'});
+    if(!PAPER_SIMBOLOS.has(simbolo))throw new Error('Instrumento no disponible para la práctica.');
+    if(PUBLICO&&PAPER_CRIPTO.some(([s])=>s===simbolo)){
+      const r=await fetch(PAPER_BINANCE+'?symbol='+encodeURIComponent(simbolo)+'&interval=1m&limit=1',{cache:'no-store'});
       if(!r.ok)throw new Error(`Binance Spot: HTTP ${r.status}`);
       const filas=await r.json();
       if(!Array.isArray(filas)||filas.length!==1||!Array.isArray(filas[0])||filas[0].length<6)
@@ -3941,13 +3980,13 @@ void main(){
   }
   function paperPintar(){
     const el=$('paper-wrap');if(!el||!PAPER_ESTADO)return;
-    const a=PAPER_ESTADO,precio=paperValor(),historico=a.modo==='historico',moneda=a.simbolo==='QQQ'?'USD':'USDT';
+    const a=PAPER_ESTADO,precio=paperValor(),historico=a.modo==='historico',moneda=PAPER_CRIPTO.some(([s])=>s===a.simbolo)?'USDT':'USD';
     const cot=PAPER_COTIZACION;
     el.innerHTML=`<p class="intro">Cuenta ficticia independiente en este navegador; no se conecta a bots ni envía órdenes. No hay apalancamiento, ventas en corto, impuestos ni ejecuciones parciales.</p>
       <p class="vuelo-estado">Los datos se guardan sin cifrar solo en este navegador y este sitio. Borrarlos o cambiar de dispositivo puede hacerte perder la cuenta. Descarga una copia para conservarla; no hay importación ni sincronización.</p>
       <div class="vuelo-config">
         <label>Modalidad<select id="paper-modo"><option value="historico"${historico?' selected':''}>Histórico QQQ</option><option value="cotizacion"${!historico?' selected':''}>Cotización disponible</option></select></label>
-        <label>Instrumento<select id="paper-simbolo"${historico?' disabled':''}><option value="QQQ"${a.simbolo==='QQQ'?' selected':''}>QQQ · USD</option><option value="BTCUSDT"${a.simbolo==='BTCUSDT'?' selected':''}>BTC/USDT</option></select></label>
+        <label>Instrumento<select id="paper-simbolo"${historico?' disabled':''}>${[["Acciones y ETF · USD",PAPER_ACCIONES],["Cripto spot · USDT",PAPER_CRIPTO]].map(([grupo,simbolos])=>`<optgroup label="${grupo}">${simbolos.map(([simbolo,nombre])=>`<option value="${simbolo}"${a.simbolo===simbolo?' selected':''}>${nombre}</option>`).join('')}</optgroup>`).join('')}</select></label>
       </div>
       <p class="vuelo-estado">Cada modalidad e instrumento tiene su propia cuenta de ${nf(PAPER_CAPITAL)} ${moneda}. Coste simulado: ${nf(PAPER_COSTE,1)} % por operación. Se permiten fracciones; USDT no equivale necesariamente a USD.</p>
       <div class="vuelo-resumen"><div><small>Efectivo ficticio</small><strong>${nf(a.efectivo)} ${moneda}</strong></div>
@@ -4052,6 +4091,13 @@ void main(){
         paperPintar();paperAviso('Orden ficticia registrada; comprueba su estado.');
       }catch(err){paperAviso(err.message,true);}
     };
+  }
+  function paperMontar(destino){
+    const padre=$(destino);if(!padre)return;
+    let el=$('paper-wrap');
+    if(!el){el=document.createElement('div');el.id='paper-wrap';el.className='panel-cuerpo';}
+    padre.appendChild(el);
+    iniciarPaper();
   }
   async function iniciarPaper(){
     const el=$('paper-wrap');if(!el)return;
