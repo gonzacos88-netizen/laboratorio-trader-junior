@@ -704,7 +704,14 @@ td{border-bottom-color:var(--borde)}
 .vuelo-reglas article{background:var(--panel2);border:1px solid var(--borde);border-radius:10px;padding:12px}
 .vuelo-reglas p{margin:5px 0 0;color:var(--tenue);font-size:12px}
 .vuelo-acciones{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.vuelo-grafico{display:block;width:100%;height:auto;margin:16px 0 6px}
+.vuelo-grafico-contenedor{position:relative;margin:16px 0 6px}
+.vuelo-grafico{display:block;width:100%;height:auto;touch-action:pan-y}
+.vuelo-tooltip{position:absolute;z-index:1;max-width:min(240px,calc(100% - 8px));padding:9px 11px;border:1px solid var(--borde2);border-radius:8px;background:var(--panel2);color:var(--txt);font-size:12px;line-height:1.45;white-space:pre-line;pointer-events:none;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.vuelo-tooltip[hidden]{display:none}
+@media(max-width:760px){.vuelo-tooltip{position:static;max-width:none;margin-top:8px}}
+.vuelo-explorador{display:grid;gap:6px;color:var(--tenue);font-size:12px}
+.vuelo-explorador input{width:100%;accent-color:var(--cian)}
+.vuelo-explorador output{color:var(--txt);line-height:1.5;overflow-wrap:anywhere}
 .vuelo-resumen{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px}
 .vuelo-resumen>div{border:1px solid var(--borde);border-radius:9px;padding:10px}
 .vuelo-resumen small,.vuelo-resumen strong{display:block}.vuelo-resumen small{color:var(--tenue);font-size:11px}
@@ -3403,19 +3410,62 @@ void main(){
     })().finally(()=>{VUELO_CARGA=null;});
     return VUELO_CARGA;
   }
-  function vueloGrafico(r){
+  function vueloGeometria(r){
     const W=800,H=190,izq=66,der=12,arr=10,ab=22;
     const puntos=r.curva;
     const vals=puntos.map(p=>p.valor).concat([r.capital]),min=Math.min(...vals),max=Math.max(...vals);
     const X=i=>izq+i/Math.max(1,puntos.length-1)*(W-izq-der),Y=v=>arr+(max-v)/(max-min||1)*(H-arr-ab);
+    return {W,H,izq,der,arr,ab,puntos,min,max,X,Y};
+  }
+  function vueloGrafico(r){
+    const {W,H,izq,der,arr,ab,puntos,min,max,X,Y}=vueloGeometria(r);
     const linea=puntos.map((p,i)=>`${i?'L':'M'}${X(i).toFixed(2)} ${Y(p.valor).toFixed(2)}`).join(' ');
-    return `<svg class="vuelo-grafico" viewBox="0 0 ${W} ${H}" role="img" aria-label="Equity diaria simulada al cierre">
+    return `<div class="vuelo-grafico-contenedor"><svg id="vuelo-grafico" class="vuelo-grafico" viewBox="0 0 ${W} ${H}" role="img" aria-label="Capital histórico simulado al cierre; usa el control siguiente para explorar cada sesión">
       <line x1="${izq}" x2="${W-der}" y1="${Y(r.capital)}" y2="${Y(r.capital)}" stroke="#64748b" stroke-dasharray="4 4"/>
       <path d="${linea}" fill="none" stroke="#22d3ee" stroke-width="2"/>
+      <g id="vuelo-marca" visibility="hidden" pointer-events="none"><line id="vuelo-linea" y1="${arr}" y2="${H-ab}" stroke="#91d8d2" stroke-dasharray="3 3"/>
+      <circle id="vuelo-punto" r="3.5" fill="#22d3ee" stroke="#fff" stroke-width="1"/></g>
       <text x="${izq-5}" y="${arr+10}" text-anchor="end" fill="#8492ab" font-size="10">${nf(max,0)}</text>
       <text x="${izq-5}" y="${H-ab}" text-anchor="end" fill="#8492ab" font-size="10">${nf(min,0)}</text>
       <text x="${izq}" y="${H-4}" fill="#8492ab" font-size="10">${esc(puntos[0].fecha)}</text>
-      <text x="${W-der}" y="${H-4}" text-anchor="end" fill="#8492ab" font-size="10">${esc(puntos[puntos.length-1].fecha)}</text></svg>`;
+      <text x="${W-der}" y="${H-4}" text-anchor="end" fill="#8492ab" font-size="10">${esc(puntos[puntos.length-1].fecha)}</text></svg>
+      <div id="vuelo-tooltip" class="vuelo-tooltip" hidden aria-hidden="true"></div></div>
+      <label class="vuelo-explorador" for="vuelo-sesion">Explora la curva: mueve el ratón, toca la gráfica o usa las flechas del control.
+        <input id="vuelo-sesion" type="range" min="0" max="${puntos.length-1}" value="${puntos.length-1}" step="1" aria-label="Sesión de la simulación" aria-describedby="vuelo-detalle">
+        <output id="vuelo-detalle" for="vuelo-sesion"></output></label>`;
+  }
+  function vueloExplorar(r,velas){
+    const {W,H,izq,der,puntos,X,Y}=vueloGeometria(r),svg=$('vuelo-grafico'),contenedor=svg.parentElement,
+      selector=$('vuelo-sesion'),detalle=$('vuelo-detalle'),tip=$('vuelo-tooltip'),marca=$('vuelo-marca'),
+      linea=$('vuelo-linea'),punto=$('vuelo-punto');
+    function seleccionar(indice,mostrarTip){
+      const i=Math.max(0,Math.min(puntos.length-1,indice)),p=puntos[i],v=velas[i],previo=i?puntos[i-1].valor:r.capital;
+      const acumulado=(p.valor/r.capital-1)*100,dia=previo>0?(p.valor/previo-1)*100:null;
+      const resumen=`${p.fecha} · Capital simulado: ${nf(p.valor)} $ · Desde el inicio: ${fs(acumulado)} % · ${i?'Sesión anterior':'Capital inicial'}: ${dia===null?'no disponible':fs(dia)+' %'}`;
+      const precios=`QQQ ajustado: apertura ${nf(v.open)} · máximo ${nf(v.high)} · mínimo ${nf(v.low)} · cierre ${nf(v.close)} $`;
+      selector.value=String(i);selector.setAttribute('aria-valuetext',resumen);detalle.textContent=`${resumen}. ${precios}.`;
+      const x=X(i),y=Y(p.valor);linea.setAttribute('x1',x);linea.setAttribute('x2',x);
+      punto.setAttribute('cx',x);punto.setAttribute('cy',y);marca.setAttribute('visibility','visible');
+      tip.hidden=!mostrarTip;
+      if(mostrarTip){
+        tip.textContent=`${p.fecha}\nCapital simulado: ${nf(p.valor)} $\nDesde el inicio: ${fs(acumulado)} %\n${i?'Sesión anterior':'Capital inicial'}: ${dia===null?'no disponible':fs(dia)+' %'}\n${precios}`;
+        const ancho=contenedor.clientWidth,alto=contenedor.clientHeight,px=x/W*ancho,py=y/H*alto;
+        const izquierda=px+12+tip.offsetWidth>ancho?px-tip.offsetWidth-12:px+12;
+        tip.style.left=`${Math.max(4,Math.min(izquierda,ancho-tip.offsetWidth-4))}px`;
+        tip.style.top=`${Math.max(4,Math.min(py-tip.offsetHeight/2,alto-tip.offsetHeight-4))}px`;
+      }
+    }
+    function mover(e){
+      const matriz=svg.getScreenCTM();if(!matriz)return;
+      const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;
+      const x=p.matrixTransform(matriz.inverse()).x;
+      seleccionar(Math.round((x-izq)/(W-izq-der)*(puntos.length-1)),true);
+    }
+    svg.addEventListener('pointermove',mover);
+    svg.addEventListener('pointerdown',mover);
+    svg.addEventListener('pointerleave',()=>{tip.hidden=true;});
+    selector.addEventListener('input',()=>seleccionar(Number(selector.value),false));
+    seleccionar(puntos.length-1,false);
   }
   function vueloResultado(){
     const form=$('vuelo-form'),res=$('vuelo-res'),aviso=$('vuelo-aviso');
@@ -3439,6 +3489,7 @@ void main(){
         <p class="vuelo-estado">Salidas: mantener ${r.operaciones.mantener.salidas}, tendencia ${r.operaciones.tendencia.salidas}, noche ${r.operaciones.noche.salidas}.
         El drawdown solo usa cierres diarios; no mide caídas intradía. No incluye impuestos ni costes fijos.</p>
         <button type="button" class="btn sec peq" id="vuelo-descargar">Descargar datos y resultado</button>`;
+      vueloExplorar(r,velas);
       $('vuelo-descargar').onclick=()=>{
         const url=URL.createObjectURL(new Blob([JSON.stringify(VUELO_ULTIMO,null,2)],{type:'application/json'}));
         const a=document.createElement('a');a.href=url;a.download='centinela-simulacion-qqq.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);

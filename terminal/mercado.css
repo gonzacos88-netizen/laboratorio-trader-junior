@@ -62,6 +62,7 @@ input{accent-color:var(--acento)}
   border-bottom:1px solid var(--borde);background:rgba(11,19,34,.7)}
 #cierre{font-family:var(--num);font-size:clamp(24px,2.6vw,32px);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .datos{text-align:right;font-size:12px;line-height:1.55;color:var(--tenue2)}.datos p{margin:2px 0}
+.detalle-vela{min-height:36px;margin:0;padding:10px 20px;color:var(--tenue);font-size:12px;line-height:1.5;overflow-wrap:anywhere}
 #grafico{height:clamp(360px,58vh,720px);width:100%}
 #estado{min-height:40px;margin:0;padding:11px 20px;color:var(--tenue);font-size:12px;border-top:1px solid var(--borde);
   background:rgba(11,19,34,.7)}

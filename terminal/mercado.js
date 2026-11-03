@@ -8,7 +8,7 @@
   const fuenteDe = sim => cripto.has(sim) ? 'Binance Spot' : 'Yahoo Finance';
   const publico = location.hostname === 'gonzacos88-netizen.github.io' || new URLSearchParams(location.search).get('publico') === '1';
   const apiPublica = 'https://centinela-mercado.gonzacos88.workers.dev';
-  let chart, velas, ema20, ema50, datos = [], secuencia = 0, peticion = null;
+  let chart, velas, ema20, ema50, datos = [], indiceVelas = new Map(), secuencia = 0, peticion = null;
   let dibujando = null, primerPunto = null, dibujos = [];
   let reproduciendo = false, posicion = 0, temporizador = null;
   let ultimoEstado = { texto: 'Esperando datos de mercado.', error: false };
@@ -80,6 +80,13 @@
     primerPunto = null;
   }
 
+  function mostrarVela(v) {
+    const el = $('detalle-vela');
+    if (!v) { el.textContent = 'Pasa el cursor o toca una vela para ver sus precios.'; return; }
+    const volumen = v.volume == null ? '' : ` · Volumen ${numero.format(v.volume)}`;
+    el.textContent = `${fechaMadrid.format(new Date(v.time * 1000))} (Madrid) · Apertura ${numero.format(v.open)} · Máximo ${numero.format(v.high)} · Mínimo ${numero.format(v.low)} · Cierre ${numero.format(v.close)}${volumen}`;
+  }
+
   function pintar(ajustar = false) {
     const serie = visibles();
     velas.setData(serie);
@@ -87,6 +94,7 @@
     if (!serie.length) return;
     if (ajustar) chart.timeScale().setVisibleLogicalRange({ from: Math.max(0, serie.length - 140), to: serie.length + 8 });
     const ultima = serie[serie.length - 1];
+    mostrarVela(ultima);
     $('titulo-cierre').textContent = reproduciendo ? 'CIERRE HISTÓRICO VISIBLE' : 'ÚLTIMO CIERRE DE VELA';
     $('cierre').textContent = numero.format(ultima.close) + (cripto.has(simbolo.value) ? ' USDT' : '');
     $('detalle').textContent = `${simbolo.value} · ${intervalo.value} · inicio ${reproduciendo ? 'vela visible' : 'última vela'}: ${fechaMadrid.format(new Date(ultima.time * 1000))} (Madrid)`;
@@ -156,8 +164,10 @@
       borrarDibujos();
       $('herramienta-estado').textContent = 'Dibujos borrados al cambiar activo o intervalo. No se envían órdenes.';
       datos = [];
+      indiceVelas = new Map();
       velas.setData([]);
       indicadores();
+      mostrarVela(null);
       $('titulo-cierre').textContent = 'ÚLTIMO CIERRE DE VELA';
       $('cierre').textContent = '—';
       $('detalle').textContent = `${sim} · ${iv} · esperando velas`;
@@ -169,6 +179,7 @@
       if (!valido(respuesta, sim, iv)) throw new Error('Respuesta de mercado incompatible o sin velas.');
       if (actual !== secuencia) return;
       datos = respuesta.velas;
+      indiceVelas = new Map(datos.map(v => [v.time, v]));
       pintar(ajustar);
       const fecha = Date.parse(respuesta.respuesta_utc);
       const recibida = Number.isFinite(fecha) ? ` · respuesta ${fechaMadrid.format(new Date(fecha))} (Madrid)` : '';
@@ -197,6 +208,12 @@
     velas = chart.addCandlestickSeries({
       upColor: '#2bd48a', downColor: '#ff5470', borderVisible: false,
       wickUpColor: '#2bd48a', wickDownColor: '#ff5470',
+    });
+    chart.subscribeCrosshairMove(param => {
+      const v = param && param.point && param.time !== undefined ? indiceVelas.get(param.time) : null;
+      const limite = reproduciendo && datos[posicion] ? datos[posicion].time : Infinity;
+      const serie = visibles();
+      mostrarVela(v && v.time <= limite ? v : serie[serie.length - 1]);
     });
     ema20 = chart.addLineSeries({ color: '#fbbf24', lineWidth: 2, priceLineVisible: false, lastValueVisible: false });
     ema50 = chart.addLineSeries({ color: '#bec9e8', lineWidth: 2, priceLineVisible: false, lastValueVisible: false });
